@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PySide2 on Hola</title>
+    <link>https://xiaojieluo.com/tags/pyside2/</link>
+    <description>Recent content in PySide2 on Hola</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 12 Sep 2019 13:10:35 +0800</lastBuildDate><atom:link href="https://xiaojieluo.com/tags/pyside2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PySide2中加载ui文件的两种方法比较</title>
+      <link>https://xiaojieluo.com/posts/pyside2%E4%B8%AD%E5%8A%A0%E8%BD%BDui%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83/</link>
+      <pubDate>Thu, 12 Sep 2019 13:10:35 +0800</pubDate>
+      
+      <guid>https://xiaojieluo.com/posts/pyside2%E4%B8%AD%E5%8A%A0%E8%BD%BDui%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83/</guid>
+      <description>&lt;p&gt;先将 QtDesigner 生成的.ui 文件转换成 python 类，再在项目中导入这个类。&lt;/p&gt;
+&lt;p&gt;可以使用 &lt;code&gt;pyside2-uic&lt;/code&gt; 这个工具来实现 ui 文件转 python 类的操作，执行以下命令即可：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;    pyside2-uic mainwindow.ui -o ui_mainwindow.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

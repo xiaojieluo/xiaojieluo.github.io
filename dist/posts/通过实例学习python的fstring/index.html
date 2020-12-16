@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo 0.79.0" />
+
+  <title> 通过实例学习python的fstring |  Hola</title>
+  <meta name="description" content="A simple and concise blog.">
+  <link rel="stylesheet" href="https://xiaojieluo.com/css/simpleness.css">
+  <link rel="canonical" href="https://xiaojieluo.com/posts/%E9%80%9A%E8%BF%87%E5%AE%9E%E4%BE%8B%E5%AD%A6%E4%B9%A0python%E7%9A%84fstring/">
+  <link rel="alternate" type="application/rss+xml" href="" title="Hola">
+  
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="menus">
+  
+
+  <nav >
+    
+    <a href="/"> Home</a>
+    
+    <a href="/about/"> About</a>
+    
+  </nav>
+
+  <nav class="fontawesome">
+    
+    <a href="https://github.com/xiaojieluo" target="_blank">
+        <i title="GitHub" class="fab fa-github"></i>
+    </a>
+    
+    
+    <a href="https://xiaojieluo.com/index.xml" target="_blank">
+        <i title="RSS" class="fas fa-rss"></i>
+    </a>
+    
+  </nav>
+  
+  
+  <div class="hidden description">A simple and concise blog.</div>
+  
+</header>
+
+<article class="article">
+  <header>
+    <h1 style="text-align: center;" >通过实例学习python的fstring</h1>
+
+    <div class="post-meta">
+    
+      <time datetime="2020-11-14T10:01:33&#43;08:00">November 14, 2020</time> &nbsp; 
+    
+
+     &nbsp;
+
+    
+    
+      <i class="far fa-eye"></i>
+      <span id="/posts/%E9%80%9A%E8%BF%87%E5%AE%9E%E4%BE%8B%E5%AD%A6%E4%B9%A0python%E7%9A%84fstring/" class="leancloud_visitors" data-flag-title="通过实例学习python的fstring">
+          <span class="leancloud-visitors-count">  </span>
+      </span> &nbsp;
+    
+    
+
+    
+      <i class="far fa-clock"></i>
+      
+      
+      
+
+      
+        15 min
+      
+      14 s
+      &nbsp;
+    
+
+    
+    </div>
+  </header>
+
+   
+
+  <div class="text">
+    <h2 id="1-什么是-python-的-f-string">1. 什么是 Python 的 F-String</h2>
+<p>在 Python 的历史中，字符串格式已经发展了很久， 在 Python 3.6 之前，如果想要格式化字符串，可以用 <code>%</code> 操作符或者 <code>string.Template</code> 模块，随后出现了 <code>str.format</code> 方法，并为语言中添加了一种更灵活，更健壮的格式化字符串的方法。</p>
+<p>带 <code>%</code> 的旧字符串格式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> msg <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;Hello World&#39;</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#f1fa8c">&#39;msg: </span><span style="color:#f1fa8c">%s</span><span style="color:#f1fa8c">&#39;</span> <span style="color:#ff79c6">%</span> msg
+
+<span style="color:#f1fa8c">&#39;msg: Hello World&#39;</span>
+
+</code></pre></div><p>使用 <code>str.format</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> msg <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;Hello World&#39;</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#f1fa8c">&#39;msg: {}&#39;</span><span style="color:#ff79c6">.</span>format(msg)
+
+<span style="color:#f1fa8c">&#39;msg: Hello World&#39;</span>
+</code></pre></div><p>为了进一步简化格式，Eric Smith 在 2015 年提出了 <a href="https://www.python.org/dev/peps/pep-0498/">PEP 498 &ndash; Literal String Interpolation</a></p>
+<p>PEP 498 提出了这种新的格式化字符串方法，它是 <code>str.format</code> 的一种简单易用的替换方法。唯一需要做的就是在字符串开头添加 <code>f</code> 或者 <code>F</code> 字符。</p>
+<p>使用 <code>f-strings</code> :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> msg <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;hello world&#39;</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;msg: {msg}&#39;</span>
+
+<span style="color:#f1fa8c">&#39;msg: hello world&#39;</span>
+
+</code></pre></div><p>就是这样，不需要使用 <code>str.format</code> 或者<code>%</code>，但是，<code>f-string</code> 不能完全代替 <code>str.format</code>，在下面的文章中，我会展示几个不适用 <code>f-string</code> 的示例。</p>
+<h2 id="2-使用-python-进行基本的字符串格式化">2. 使用 Python 进行基本的字符串格式化</h2>
+<p>如前一节所述，使用 <code>f-string</code> 格式化字符串非常简单，唯一的要求是为其提供有效的表达式。<code>f-string</code> 可以用大写的 <code>F</code>开头，并且可以与原始字符串结合使用，但是，不能将它与 <code>b''</code> 或者 <code>u''</code> 混合使用。</p>
+<p><img src="https://i.loli.net/2020/11/14/tPJqyNTKCu31rpg.png" alt="image.png"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> book <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;The dog guide&#34;</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> num_pages <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">124</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;The book {book} has {num_pages} pages&#34;</span>
+<span style="color:#f1fa8c">&#39;The book The dog guide has 124 pages&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> F<span style="color:#f1fa8c">&#34;The book {book} has {num_pages} pages&#34;</span>
+<span style="color:#f1fa8c">&#39;The book The dog guide has 124 pages&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(Fr<span style="color:#f1fa8c">&#34;The book {book} has {num_pages} pages</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>)
+The book The dog guide has <span style="color:#bd93f9">124</span> pages\n
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(FR<span style="color:#f1fa8c">&#34;The book {book} has {num_pages} pages</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>)
+The book The dog guide has <span style="color:#bd93f9">124</span> pages\n
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(f<span style="color:#f1fa8c">&#34;The book {book} has {num_pages} pages</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>)
+The book The dog guide has <span style="color:#bd93f9">124</span> pages
+
+</code></pre></div><p>差不多就是这样，在下一节中，会列举几个不适用于 <code>f-string</code> 的示例。</p>
+<h2 id="3-f-string-的局限性">3. f-string 的局限性</h2>
+<p>尽管 <code>f-string</code> 非常方便，但是它不能完全替代 <code>str.format</code> 。 <code>f-string</code> 在表达式的上下文获取变量值。根据 <a href="https://miguendes.me/73-examples-to-help-you-master-pythons-f-strings#https://www.python.org/dev/peps/pep-0498/">PEP 498</a>的约定，这意味着表达式可以完全访问局部和全局变量，如果 <code>{ &lt;expr&gt; }</code> 中使用的表达式无法求值，则 python 解释器将引发异常。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{name}&#34;</span>
+
+<span style="color:#ff79c6">---------------------------------------------------------------------------</span>
+NameError                                 Traceback (most recent call last)
+<span style="color:#ff79c6">&lt;</span>ipython<span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">input</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span><span style="color:#ff79c6">-</span>f0acc441190f<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">in</span> <span style="color:#ff79c6">&lt;</span>module<span style="color:#ff79c6">&gt;</span>
+<span style="color:#ff79c6">----&gt;</span> <span style="color:#bd93f9">1</span> f<span style="color:#f1fa8c">&#34;{name}&#34;</span>
+
+NameError: name <span style="color:#f1fa8c">&#39;name&#39;</span> <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">not</span> defined
+
+</code></pre></div><p>这对于 <code>str.format</code> 来说不是问题，因为你可以定义模板字符串，然后调用 <code>.format</code> 来传递上下文</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> s <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;{name}&#34;</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> s<span style="color:#ff79c6">.</span>format(name<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;Python&#34;</span>)
+<span style="color:#f1fa8c">&#39;Python&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(s)
+{name}
+</code></pre></div><p>另一个限制是不能在 f-string 中使用内联注释。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;My name is {name #name}!&#34;</span>
+
+  File <span style="color:#f1fa8c">&#34;&lt;ipython-input-37-0ae1738dd871&gt;&#34;</span>, line <span style="color:#bd93f9">1</span>
+
+    f<span style="color:#f1fa8c">&#34;My name is {name #name}!&#34;</span>
+    <span style="color:#ff79c6">^</span>
+
+SyntaxError: f<span style="color:#ff79c6">-</span>string expression part cannot include <span style="color:#f1fa8c">&#39;#&#39;</span>
+
+</code></pre></div><h2 id="4-如何格式化表达式">4. 如何格式化表达式</h2>
+<p>如果不想定义变量，则可以在花括号内使用表达式，Python 将在运行时计算出结果。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;4 * 4 is {4 * 4}&#34;</span>
+<span style="color:#f1fa8c">&#39;4 * 4 is 16&#39;</span>
+</code></pre></div><p>或者也可以这样&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> n <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">4</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;4 * 4 = {n * n}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;4 * 4 is 16&#39;</span>
+
+</code></pre></div><h2 id="5-使用-f-strings-调试代码">5. 使用 F-Strings 调试代码</h2>
+<p>f-string 最常见的用法之一就是调试。在之前，很多人都是用 <code>hello = 42; f&quot;hello={hello}&quot;</code>来进行代码调试, 但是这样非常繁琐。现在，Python 3.6 带来了新的功能，可以将表达式重写成 <code>hello = 42; f&quot;{hello=}&quot;</code>，Python 将自动显示 <code>hello = 42</code>，下面的示例使用一个函数对此进行了说明，其原理是相同的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">magic_number</span>():
+        <span style="color:#ff79c6">...</span>:    <span style="color:#ff79c6">return</span> <span style="color:#bd93f9">42</span>
+        <span style="color:#ff79c6">...</span>:
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{magic_number() = }&#34;</span>
+<span style="color:#f1fa8c">&#39;magic_number() = 42&#39;</span>
+</code></pre></div><h2 id="6-格式化不同基数的整数">6. 格式化不同基数的整数</h2>
+<p><img src="https://i.loli.net/2020/11/15/BZ41hUEODclL7qk.png" alt="image.png"></p>
+<p>f-string 还允许以不同的格式显示数字。例如，可以使用 <code>b</code> 选项将 int 显示为二进制而不进行转换。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{7:b}&#39;</span>
+
+<span style="color:#f1fa8c">&#39;111&#39;</span>
+
+</code></pre></div><p>总之，可以使用 f-string 格式化。</p>
+<ul>
+<li><code>int</code> 转 <code>binary</code>(二进制)</li>
+<li><code>int</code> 转 <code>hex</code>(十六进制)</li>
+<li><code>int</code> 转 <code>octal</code>(八进制)</li>
+<li><code>int</code> 转 <code>HEX</code>(所有的字符都是大写)</li>
+</ul>
+<p>下面的示例使用填充功能和基础数字格式来创建一个表，该表显示了整数格式化成其他进制后的对应数据。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> bases <span style="color:#ff79c6">=</span> {
+       <span style="color:#f1fa8c">&#34;b&#34;</span>: <span style="color:#f1fa8c">&#34;bin&#34;</span>,
+       <span style="color:#f1fa8c">&#34;o&#34;</span>: <span style="color:#f1fa8c">&#34;oct&#34;</span>,
+       <span style="color:#f1fa8c">&#34;x&#34;</span>: <span style="color:#f1fa8c">&#34;hex&#34;</span>,
+       <span style="color:#f1fa8c">&#34;X&#34;</span>: <span style="color:#f1fa8c">&#34;HEX&#34;</span>,
+       <span style="color:#f1fa8c">&#34;d&#34;</span>: <span style="color:#f1fa8c">&#34;decimal&#34;</span>
+}
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">for</span> n <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">range</span>(<span style="color:#bd93f9">1</span>, <span style="color:#bd93f9">21</span>):
+     <span style="color:#ff79c6">...</span>:     <span style="color:#ff79c6">for</span> base, desc <span style="color:#ff79c6">in</span> bases<span style="color:#ff79c6">.</span>items():
+     <span style="color:#ff79c6">...</span>:         <span style="color:#ff79c6">print</span>(f<span style="color:#f1fa8c">&#34;{n:5{base}}&#34;</span>, end<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39; &#39;</span>)
+     <span style="color:#ff79c6">...</span>:     <span style="color:#ff79c6">print</span>()
+
+    <span style="color:#bd93f9">1</span>     <span style="color:#bd93f9">1</span>     <span style="color:#bd93f9">1</span>     <span style="color:#bd93f9">1</span>     <span style="color:#bd93f9">1</span>
+   <span style="color:#bd93f9">10</span>     <span style="color:#bd93f9">2</span>     <span style="color:#bd93f9">2</span>     <span style="color:#bd93f9">2</span>     <span style="color:#bd93f9">2</span>
+   <span style="color:#bd93f9">11</span>     <span style="color:#bd93f9">3</span>     <span style="color:#bd93f9">3</span>     <span style="color:#bd93f9">3</span>     <span style="color:#bd93f9">3</span>
+  <span style="color:#bd93f9">100</span>     <span style="color:#bd93f9">4</span>     <span style="color:#bd93f9">4</span>     <span style="color:#bd93f9">4</span>     <span style="color:#bd93f9">4</span>
+  <span style="color:#bd93f9">101</span>     <span style="color:#bd93f9">5</span>     <span style="color:#bd93f9">5</span>     <span style="color:#bd93f9">5</span>     <span style="color:#bd93f9">5</span>
+  <span style="color:#bd93f9">110</span>     <span style="color:#bd93f9">6</span>     <span style="color:#bd93f9">6</span>     <span style="color:#bd93f9">6</span>     <span style="color:#bd93f9">6</span>
+  <span style="color:#bd93f9">111</span>     <span style="color:#bd93f9">7</span>     <span style="color:#bd93f9">7</span>     <span style="color:#bd93f9">7</span>     <span style="color:#bd93f9">7</span>
+ <span style="color:#bd93f9">1000</span>    <span style="color:#bd93f9">10</span>     <span style="color:#bd93f9">8</span>     <span style="color:#bd93f9">8</span>     <span style="color:#bd93f9">8</span>
+ <span style="color:#bd93f9">1001</span>    <span style="color:#bd93f9">11</span>     <span style="color:#bd93f9">9</span>     <span style="color:#bd93f9">9</span>     <span style="color:#bd93f9">9</span>
+ <span style="color:#bd93f9">1010</span>    <span style="color:#bd93f9">12</span>     a     A    <span style="color:#bd93f9">10</span>
+ <span style="color:#bd93f9">1011</span>    <span style="color:#bd93f9">13</span>     b     B    <span style="color:#bd93f9">11</span>
+ <span style="color:#bd93f9">1100</span>    <span style="color:#bd93f9">14</span>     c     C    <span style="color:#bd93f9">12</span>
+ <span style="color:#bd93f9">1101</span>    <span style="color:#bd93f9">15</span>     d     D    <span style="color:#bd93f9">13</span>
+ <span style="color:#bd93f9">1110</span>    <span style="color:#bd93f9">16</span>     e     E    <span style="color:#bd93f9">14</span>
+ <span style="color:#bd93f9">1111</span>    <span style="color:#bd93f9">17</span>     f     F    <span style="color:#bd93f9">15</span>
+<span style="color:#bd93f9">10000</span>    <span style="color:#bd93f9">20</span>    <span style="color:#bd93f9">10</span>    <span style="color:#bd93f9">10</span>    <span style="color:#bd93f9">16</span>
+<span style="color:#bd93f9">10001</span>    <span style="color:#bd93f9">21</span>    <span style="color:#bd93f9">11</span>    <span style="color:#bd93f9">11</span>    <span style="color:#bd93f9">17</span>
+<span style="color:#bd93f9">10010</span>    <span style="color:#bd93f9">22</span>    <span style="color:#bd93f9">12</span>    <span style="color:#bd93f9">12</span>    <span style="color:#bd93f9">18</span>
+<span style="color:#bd93f9">10011</span>    <span style="color:#bd93f9">23</span>    <span style="color:#bd93f9">13</span>    <span style="color:#bd93f9">13</span>    <span style="color:#bd93f9">19</span>
+<span style="color:#bd93f9">10100</span>    <span style="color:#bd93f9">24</span>    <span style="color:#bd93f9">14</span>    <span style="color:#bd93f9">14</span>    <span style="color:#bd93f9">20</span>
+</code></pre></div><h2 id="7-使用-f-strings-输出对象信息">7. 使用 F-Strings 输出对象信息</h2>
+<p>你可以用 f-string 打印自定义对象，在默认情况下，将对象传给 f-string 实例中，它将显示 <code>__str__</code> 方法返回的内容。但是，也可以使用<a href="https://www.python.org/dev/peps/pep-3101/#explicit-conversion-flag">显式转换标志</a>来显示 <code>__repr__</code> 。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">!r <span style="color:#ff79c6">-</span> 使用 <span style="color:#8be9fd;font-style:italic">repr</span>() 将值转换成字符串
+!s <span style="color:#ff79c6">-</span> 使用 <span style="color:#8be9fd;font-style:italic">str</span>() 将值转换成字符串
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Color</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+
+        <span style="color:#ff79c6">def</span> __init__(self, r: <span style="color:#8be9fd;font-style:italic">float</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">255</span>, g: <span style="color:#8be9fd;font-style:italic">float</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">255</span>, b: <span style="color:#8be9fd;font-style:italic">float</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">255</span>):
+            self<span style="color:#ff79c6">.</span>r <span style="color:#ff79c6">=</span> r
+            self<span style="color:#ff79c6">.</span>g <span style="color:#ff79c6">=</span> g
+            self<span style="color:#ff79c6">.</span>b <span style="color:#ff79c6">=</span> b
+
+        <span style="color:#ff79c6">def</span> __str__(self) <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">str</span>:
+            <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#39;A RGB color.&#39;</span>
+
+        <span style="color:#ff79c6">def</span> __repr__(self) <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">str</span>:
+            <span style="color:#ff79c6">return</span> f<span style="color:#f1fa8c">&#34;Color(r={self.r}, g = {self.g}, b = {self.b})&#34;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> c <span style="color:#ff79c6">=</span> Color(r<span style="color:#ff79c6">=</span><span style="color:#bd93f9">123</span>, g<span style="color:#ff79c6">=</span><span style="color:#bd93f9">32</span>, b<span style="color:#ff79c6">=</span><span style="color:#bd93f9">255</span>)
+
+<span style="color:#6272a4"># When no option is passed, the __str__ result is printed</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{c}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;A RGB color&#39;</span>
+
+<span style="color:#6272a4"># When &#39;obj!r&#39; is used, the __repr__ output is print</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{c!r}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;Color(r=123, g=32, b=255)&#39;</span>
+
+<span style="color:#6272a4"># Some as the default</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{c!s}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;A RGB Color&#39;</span>
+
+</code></pre></div><p>Python 还允许我们通过 <code>__format__</code> 方法<a href="https://www.python.org/dev/peps/pep-3101/#controlling-formatting-on-a-per-type-basis">按类型控制格式</a>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Color</span>(<span style="color:#8be9fd;font-style:italic">object</span>):
+    <span style="color:#ff79c6">def</span> __init__(self, r: <span style="color:#8be9fd;font-style:italic">float</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">255</span>, g: <span style="color:#8be9fd;font-style:italic">float</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">255</span>, b: <span style="color:#8be9fd;font-style:italic">float</span> <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">255</span>):
+        self<span style="color:#ff79c6">.</span>r <span style="color:#ff79c6">=</span> r
+        self<span style="color:#ff79c6">.</span>g <span style="color:#ff79c6">=</span> g
+        self<span style="color:#ff79c6">.</span>b <span style="color:#ff79c6">=</span> b
+
+    <span style="color:#ff79c6">def</span> __str__(self) <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">str</span>:
+        <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#39;A RGB Color&#39;</span>
+
+    <span style="color:#ff79c6">def</span> __repr__(self) <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">str</span>:
+        <span style="color:#ff79c6">return</span> f<span style="color:#f1fa8c">&#34;Color(r={self.r}, g={self.g}, b={self.b})&#34;</span>
+
+    <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">__format__</span>(self, format_spec: <span style="color:#8be9fd;font-style:italic">str</span>) <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">str</span>:
+        <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">not</span> format_spec <span style="color:#ff79c6">or</span> format_spec <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#39;s&#39;</span>:
+            <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">str</span>(self)
+
+        <span style="color:#ff79c6">if</span> format_spec <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#39;r&#39;</span>:
+            <span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">repr</span>(self)
+
+        <span style="color:#ff79c6">if</span> format_spec <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#39;v&#39;</span>:
+            <span style="color:#ff79c6">return</span> f<span style="color:#f1fa8c">&#34;Color(r={self.r}, g={self.g}, b={self.b}) - A nice RGB thing&#34;</span>
+
+        <span style="color:#ff79c6">if</span> format_spec <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#39;vv&#39;</span>:
+            <span style="color:#ff79c6">return</span> (
+                f<span style="color:#f1fa8c">&#34;Color(r={self.r}, g={self.g}, b={self.b})&#34;</span>
+                f<span style="color:#f1fa8c">&#34;- A more verbose nice RGB thing.&#34;</span>
+            )
+
+        <span style="color:#ff79c6">if</span> format_spec <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#39;vvv&#39;</span>:
+            <span style="color:#ff79c6">return</span> (
+                f<span style="color:#f1fa8c">&#34;Color(r={self.r}, g={self.g}, b={self.b})&#34;</span>
+                f<span style="color:#f1fa8c">&#34;- A SUPER verbose nice RGB thing.&#34;</span>
+            )
+
+        <span style="color:#ff79c6">raise</span> ValueError(
+            f<span style="color:#f1fa8c">&#34;Unknow format code &#39;{format_spec}&#39;&#34;&#34;for object of type &#39;Color&#39;&#34;</span>
+        )
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> c <span style="color:#ff79c6">=</span> Color(r<span style="color:#ff79c6">=</span><span style="color:#bd93f9">123</span>, b<span style="color:#ff79c6">=</span><span style="color:#bd93f9">32</span>, g<span style="color:#ff79c6">=</span><span style="color:#bd93f9">255</span>)
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{c:v}&#39;</span>
+<span style="color:#f1fa8c">&#39;Color(r=123, g=32, b=255) - A nice RGB thing.&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{c:vv}&#39;</span>
+<span style="color:#f1fa8c">&#39;Color(r=123, g=32, b=255) - A more verbose nice RGB thing.&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{c:vvv}&#39;</span>
+<span style="color:#f1fa8c">&#39;Color(r=123, g=32, b=255) - A SUPER verbose nice RGB thing.&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{c}&#39;</span>
+<span style="color:#f1fa8c">&#39;A RGB color&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{c:s}&#39;</span>
+<span style="color:#f1fa8c">&#39;A RGB color&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{c:r}&#39;</span>
+<span style="color:#f1fa8c">&#39;Color(r=123, g=32, b=255)&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{c:j}&#39;</span>
+<span style="color:#ff79c6">---------------------------------------------------------------------------</span>
+ValueError                                Traceback (most recent call last)
+<span style="color:#ff79c6">&lt;</span>ipython<span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">input</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">20</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>c0ee8dd74be<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">in</span> <span style="color:#ff79c6">&lt;</span>module<span style="color:#ff79c6">&gt;</span>
+<span style="color:#ff79c6">----&gt;</span> <span style="color:#bd93f9">1</span> f<span style="color:#f1fa8c">&#39;{c:j}&#39;</span>
+
+<span style="color:#ff79c6">&lt;</span>ipython<span style="color:#ff79c6">-</span><span style="color:#8be9fd;font-style:italic">input</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">15</span><span style="color:#ff79c6">-</span><span style="color:#bd93f9">985</span>c4992e957<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">in</span> __format__(self, format_spec)
+     <span style="color:#bd93f9">29</span>                 f<span style="color:#f1fa8c">&#34;- A SUPER verbose nice RGB thing.&#34;</span>
+     <span style="color:#bd93f9">30</span>             )
+<span style="color:#ff79c6">---&gt;</span> <span style="color:#bd93f9">31</span>         <span style="color:#ff79c6">raise</span> ValueError(
+     <span style="color:#bd93f9">32</span>             f<span style="color:#f1fa8c">&#34;Unknown format code &#39;{format_spec}&#39; &#34;</span> <span style="color:#f1fa8c">&#34;for object of type &#39;Color&#39;&#34;</span>
+     <span style="color:#bd93f9">33</span>         )
+
+ValueError: Unknown format code <span style="color:#f1fa8c">&#39;j&#39;</span> <span style="color:#ff79c6">for</span> <span style="color:#8be9fd;font-style:italic">object</span> of <span style="color:#8be9fd;font-style:italic">type</span> <span style="color:#f1fa8c">&#39;Color&#39;</span>
+
+</code></pre></div><p>最后，还有一个选项可以转义非 ASCII 字符，有关信息可以查阅<a href="https://docs.python.org/3/library/functions.html#ascii">docs.python.org/3/library/functions.html#as..</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> utf_str <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Áeiöu&#34;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{utf_str!a}&#34;</span>
+
+<span style="color:#f1fa8c">&#34;&#39;</span><span style="color:#f1fa8c">\\</span><span style="color:#f1fa8c">xc1ei</span><span style="color:#f1fa8c">\\</span><span style="color:#f1fa8c">xf6u&#39;&#34;</span>
+
+</code></pre></div><h2 id="8-在-f-strings-中设置-float-精度">8. 在 F-Strings 中设置 float 精度</h2>
+<p>f-string 允许使用 str.format 格式的浮点数精度表示法，为此，可以在表达式后添加一个<code>:</code>，和带后缀f的小数点数。</p>
+<p>例如，可以将浮点数四舍五入到小数点后两位，然后按如下格式打印变量：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> num <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">3.1415926</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;num round to 2 decimal palaces = {num:.2f}&#39;</span>
+<span style="color:#f1fa8c">&#39;num rounded to 2 decimal palces = 3.14&#39;</span>
+</code></pre></div><p>如果未指定任何精度，则 float 将使用全精度</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(f<span style="color:#f1fa8c">&#39;{num}&#39;</span>)
+
+<span style="color:#bd93f9">3.1415926</span>
+
+</code></pre></div><h2 id="9-将数字格式化成百分比">9. 将数字格式化成百分比</h2>
+<p>Python3.6 引入的 f-string 将数字格式化成百分比非常方便。规则与浮点数精度格式相似，不同之处在于后缀将 <code>f</code> 换成 <code>%</code>。它将数字乘以 100 并以固定格式显示，后面跟一个 <code>%</code>， 并且可以指定精度。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> total <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">87</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> true_pops <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">34</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> perc <span style="color:#ff79c6">=</span> true_pops <span style="color:#ff79c6">/</span> total
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> perc
+<span style="color:#bd93f9">0.39080459770114945</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;Percentage of true positive: {perc:.%}&#39;</span>
+<span style="color:#f1fa8c">&#39;Percentage of true positive: 39.080460%&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;Percentage of true positive: {perc:.2%}&#34;</span>
+<span style="color:#f1fa8c">&#39;Percentage of true positive: 39.08%&#39;</span>
+</code></pre></div><h2 id="10-使用-f-strings-来对齐输出字符串">10. 使用 F-Strings 来对齐输出字符串</h2>
+<p>可以使用 <code>&lt;</code> 或者 <code>&gt;</code> 来对齐字符串。</p>
+<p><img src="https://i.loli.net/2020/11/15/NL8laOgUxquf7pj.png" alt="image.png"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> greetings <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;Hello&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;She says {greetings:&gt;10}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;She says          Hello&#39;</span>
+
+<span style="color:#6272a4"># 向右对齐，即在左边增加 10 个字符</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{greetings:&gt;10}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;     hello&#39;</span>
+
+<span style="color:#6272a4"># 向左对齐，即在右边增加 10 个字符</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{greetings:&lt;10}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;hello     &#39;</span>
+
+<span style="color:#6272a4"># 可以省略 `&lt;` ， 默认向左对齐</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{greetings:10}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;hello     &#39;</span>
+
+</code></pre></div><p><img src="https://i.loli.net/2020/11/15/NQm5rlfRo3aFIAp.png" alt="image.png"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> a <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;1&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> b <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;21&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> c <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;321&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> d <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;4321&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(<span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">.</span>join((f<span style="color:#f1fa8c">&#34;{a:&gt;10}&#34;</span>, f<span style="color:#f1fa8c">&#34;{b:&gt;10}&#34;</span>, f<span style="color:#f1fa8c">&#34;{c:&gt;10}&#34;</span>, f<span style="color:#f1fa8c">&#34;{d:&gt;10}&#34;</span>)))
+         <span style="color:#bd93f9">1</span>
+        <span style="color:#bd93f9">21</span>
+       <span style="color:#bd93f9">321</span>
+      <span style="color:#bd93f9">4321</span>
+</code></pre></div><h2 id="11-转义字符串">11. 转义字符串</h2>
+<p>如果要显示用大括号括起来的变量名而不是显示其值，可以使用双大括号 <code>{{ &lt;expr&gt; }}</code> 对齐进行转义</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> hello <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;world&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{{hello}} = {hello}&#39;</span>
+
+<span style="color:#f1fa8c">&#39;{hello} = world&#39;</span>
+
+</code></pre></div><p>如果要转义双引号，可以使用反斜杠 <code>\</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{hello} = </span><span style="color:#f1fa8c">\&#34;</span><span style="color:#f1fa8c">hello</span><span style="color:#f1fa8c">\&#34;</span><span style="color:#f1fa8c">&#34;</span>
+<span style="color:#f1fa8c">&#39;world = &#34;hello&#34;&#39;</span>
+</code></pre></div><h2 id="12-居中字符串">12. 居中字符串</h2>
+<p><img src="https://i.loli.net/2020/11/15/hCow9RlfMXsLpxK.png" alt="image.png"></p>
+<p>可以使用 <code>var:^N</code> 来使字符串居中，其中 <code>var</code> 是要显示的变量， <code>N</code> 是字符串长度。如果 <code>N</code> 小于 <code>len(var)</code> ，则 Python 会显示所有字符串。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> hello <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;world&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{hello:^11}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;   world   &#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{hello:*^11}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;***world***&#39;</span>
+
+<span style="color:#6272a4"># 右侧添加了额外的填充字符</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{hello:*^10}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;**world***&#39;</span>
+
+<span style="color:#6272a4"># `N` 小于 len(hello)</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{hello:^2}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;world&#39;</span>
+
+</code></pre></div><h2 id="13-添加千分位分割符">13. 添加千分位分割符</h2>
+<p>f-string 还允许我们自定义数字。一种常见的操作是在每个千分位之间添加下划线</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> big_num <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1234567890</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{bing_num:_}&#34;</span>
+<span style="color:#f1fa8c">&#39;1_234_567_890&#39;</span>
+</code></pre></div><p>事实上，可以使用任意的符号来做分割符。下面是使用 <code>,</code> 来做千位分割符的示例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> big_num <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1234567890</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{big_num:, }&#34;</span>
+
+<span style="color:#f1fa8c">&#39;1, 234, 567, 890&#39;</span>
+
+</code></pre></div><p>也可以使用逗号分割浮点数，并一同设置显示精度</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> num <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2343552.6516251625</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{num:,.3f}&#34;</span>
+<span style="color:#f1fa8c">&#39;2,343,552.652&#39;</span>
+</code></pre></div><p>也可以和 <code>replace</code> 结合使用，用空格做千分位分隔符</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> big_num <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">1234567890</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{big_num:,}&#34;</span><span style="color:#ff79c6">.</span>replace(<span style="color:#f1fa8c">&#39;,&#39;</span>, <span style="color:#f1fa8c">&#39; &#39;</span>)
+<span style="color:#f1fa8c">&#39;1 234 567 890&#39;</span>
+</code></pre></div><h2 id="14-使用科学技术法指针计数法格式化数字">14. 使用科学技术法（指针计数法）格式化数字</h2>
+<p>使用 <code>e</code> 或 <code>E</code> 选项可以以科学技术法格式化数字。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> num <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">2343552.6516251625</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{num:e}&#34;</span>
+<span style="color:#f1fa8c">&#39;2.343553e+06&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{num:E}&#34;</span>
+<span style="color:#f1fa8c">&#39;2.343553E+06&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{num:.2e}&#34;</span>
+<span style="color:#f1fa8c">&#39;2.34e+06&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{num:.4E}&#34;</span>
+<span style="color:#f1fa8c">&#39;2.3436E+06&#39;</span>
+
+</code></pre></div><h2 id="15-在-f-string-中使用-if-else-表达式">15. 在 F-String 中使用 <code>if-else</code> 表达式</h2>
+<p>f-string 还可以计算更复杂的表达式，例如内联 <code>if/else</code> ：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> a <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;this is a&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> b <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;this is b&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{a if 10 &gt; 5 else b}&#34;</span>
+<span style="color:#f1fa8c">&#39;this is a&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{a if 10 &lt; 5 else b}&#34;</span>
+<span style="color:#f1fa8c">&#39;this is b&#39;</span>
+</code></pre></div><h2 id="16-在-f-string-中使用字典">16. 在 F-String 中使用字典</h2>
+<p>你可以在 f-string 中使用字典，唯一的要求是使用与包围表达式的引号不同的表达式。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> color <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#39;R&#39;</span>: <span style="color:#bd93f9">123</span>, <span style="color:#f1fa8c">&#39;G&#39;</span>: <span style="color:#bd93f9">145</span>, <span style="color:#f1fa8c">&#39;B&#39;</span>: <span style="color:#bd93f9">255</span>}
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{color[&#39;R&#39;]}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;123&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{color[&#34;G&#34;]}&#39;</span>
+
+<span style="color:#f1fa8c">&#39;145&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;RGB = ({color[&#39;R&#39;]}, {color[&#39;G&#39;]}, {color[&#39;B&#39;]})&#34;</span>
+
+<span style="color:#f1fa8c">&#39;RGB = (123, 145, 255)&#39;</span>
+
+</code></pre></div><h2 id="17-连接-f-string-字符串">17. 连接 F-String 字符串</h2>
+<p>串联 f-string 字符串 就像链接常规字符串一样，可以隐式地连接，或者通过 <code>+</code> 运算符和 <code>str.join</code> 来显示地执行此操作。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6272a4"># 隐式字符串连接</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{123}&#34;</span> <span style="color:#f1fa8c">&#34; = &#34;</span> f<span style="color:#f1fa8c">&#34;{100}&#34;</span> <span style="color:#f1fa8c">&#34; + &#34;</span> f<span style="color:#f1fa8c">&#34;{20}&#34;</span> <span style="color:#f1fa8c">&#34; + &#34;</span> f<span style="color:#f1fa8c">&#34;{3}&#34;</span>
+<span style="color:#f1fa8c">&#39;123 = 100 + 20 + 3&#39;</span>
+
+<span style="color:#6272a4"># 使用 `+` 运算符显示连接</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{12}&#34;</span> <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34; != &#34;</span> <span style="color:#ff79c6">+</span> f<span style="color:#f1fa8c">&#34;{13}&#34;</span>
+<span style="color:#f1fa8c">&#39;12 != 13&#39;</span>
+
+<span style="color:#6272a4"># 使用 `str.join` 连接</span>
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#f1fa8c">&#34; &#34;</span><span style="color:#ff79c6">.</span>join((f<span style="color:#f1fa8c">&#34;{13}&#34;</span>, f<span style="color:#f1fa8c">&#34;{45}&#34;</span>))
+<span style="color:#f1fa8c">&#39;13 45&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#f1fa8c">&#34;#&#34;</span><span style="color:#ff79c6">.</span>join((f<span style="color:#f1fa8c">&#34;{13}&#34;</span>, f<span style="color:#f1fa8c">&#34;{45}&#34;</span>))
+<span style="color:#f1fa8c">&#39;13#45&#39;</span>
+</code></pre></div><h2 id="18-格式化显示-datetime-对象">18. 格式化显示 <code>datetime</code> 对象</h2>
+<p>f-string 还支持格式化 datetime 对象。这个过程和 <code>str.format</code> 格式的日期非常相似。有关受支持格式的更多信息，可以查看<a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">这个表</a></p>
+<p><img src="https://i.loli.net/2020/11/15/z5xGnARBDjOYiPL.png" alt="image.png"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">import</span> datetime
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> now <span style="color:#ff79c6">=</span> datetime<span style="color:#ff79c6">.</span>datetime<span style="color:#ff79c6">.</span>now()
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> ten_days_ago <span style="color:#ff79c6">=</span> now <span style="color:#ff79c6">-</span> datetime<span style="color:#ff79c6">.</span>timedelta(days<span style="color:#ff79c6">=</span><span style="color:#bd93f9">10</span>)
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{ten_days_ago:%Y-%m-</span><span style="color:#f1fa8c">%d</span><span style="color:#f1fa8c"> %H:%M:%S}&#34;</span>
+
+<span style="color:#f1fa8c">&#39;2020-11-05 18:34:34&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{now:%Y-%m-</span><span style="color:#f1fa8c">%d</span><span style="color:#f1fa8c"> %H:%M:%S}&#39;</span>
+
+<span style="color:#f1fa8c">&#39;2020-11-15 18:34:34&#39;</span>
+
+</code></pre></div><h2 id="19-修复-f-string-的无效语法错误">19. 修复 F-String 的无效语法错误</h2>
+<p>如果使用不正确，f-string 会抛出 <code>SyntaxError</code>，最常见的原因是在双引号 f-string 中使用双引号</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> color <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;R&#34;</span>: <span style="color:#bd93f9">123</span>, <span style="color:#f1fa8c">&#34;G&#34;</span>: <span style="color:#bd93f9">145</span>, <span style="color:#f1fa8c">&#34;B&#34;</span>: <span style="color:#bd93f9">255</span>}
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{color[&#34;</span><span style="color:#f1fa8c">R</span><span style="color:#f1fa8c">&#34;]}&#34;</span>
+  File <span style="color:#f1fa8c">&#34;&lt;ipython-input-43-1a7f5d512400&gt;&#34;</span>, line <span style="color:#bd93f9">1</span>
+    f<span style="color:#f1fa8c">&#34;{color[&#34;</span><span style="color:#f1fa8c">R</span><span style="color:#f1fa8c">&#34;]}&#34;</span>
+    <span style="color:#ff79c6">^</span>
+SyntaxError: f<span style="color:#ff79c6">-</span>string: unmatched <span style="color:#f1fa8c">&#39;[&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{color[&#39;</span><span style="color:#f1fa8c">R</span><span style="color:#f1fa8c">&#39;]}&#39;</span>
+  File <span style="color:#f1fa8c">&#34;&lt;ipython-input-44-3499a4e3120c&gt;&#34;</span>, line <span style="color:#bd93f9">1</span>
+    f<span style="color:#f1fa8c">&#39;{color[&#39;</span><span style="color:#f1fa8c">R</span><span style="color:#f1fa8c">&#39;]}&#39;</span>
+    <span style="color:#ff79c6">^</span>
+SyntaxError: f<span style="color:#ff79c6">-</span>string: unmatched <span style="color:#f1fa8c">&#39;[&#39;</span>
+</code></pre></div><p>另一个常见情况是在低版本中使用 f-string。f-string 是在 Python 3.6 版本中引入的，如果在低于此版本中使用，则解释器将抛出 <code>SyntaxError: invalid syntax.</code> 异常</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;this is an old version&#34;</span>
+
+  File <span style="color:#f1fa8c">&#34;&lt;stdin&gt;&#34;</span>, line <span style="color:#bd93f9">1</span>
+
+    f<span style="color:#f1fa8c">&#34;this is an old version&#34;</span>
+                            <span style="color:#ff79c6">^</span>
+
+SyntaxError: invalid syntax
+
+</code></pre></div><p>如果看到 <code>invalid syntax</code> ，先确保仔细检查正在运行的 Python 版本。</p>
+<h2 id="20-使用-f-string-给数字补零">20. 使用 F-String 给数字补零</h2>
+<p>可以使用 <code>{expr:0len}</code> 格式在数字前面补0,其中 <code>len</code> 是返回字符串的总长度。</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> num <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">42</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{num:05}&#34;</span>
+<span style="color:#f1fa8c">&#39;00042&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{num:+010}&#39;</span>
+<span style="color:#f1fa8c">&#39;+000000042&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{num:-010}&#39;</span>
+<span style="color:#f1fa8c">&#39;0000000042&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#34;{num:010}&#34;</span>
+<span style="color:#f1fa8c">&#39;0000000042&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> num <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">-</span><span style="color:#bd93f9">42</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{num:+010}&#39;</span>
+<span style="color:#f1fa8c">&#39;-000000042&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{num:010}&#39;</span>
+<span style="color:#f1fa8c">&#39;-000000042&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> f<span style="color:#f1fa8c">&#39;{num:-010}&#39;</span>
+<span style="color:#f1fa8c">&#39;-000000042&#39;</span>
+</code></pre></div><h2 id="21-在-f-string-中显示换行">21. 在 F-String 中显示换行</h2>
+<p>可以将换行符 <code>\n</code> 与 f-string 一起使用以显示多行字符串。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> multi_line <span style="color:#ff79c6">=</span> (f<span style="color:#f1fa8c">&#39;R: {color[&#34;R&#34;]}</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">G: {color[&#34;G&#34;]}</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">B: {color[&#34;B&#34;</span>
+
+    <span style="color:#ff79c6">...</span>: ]}\n<span style="color:#f1fa8c">&#39;)</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> multi_line
+
+<span style="color:#f1fa8c">&#39;R: 123</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">G: 145</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">B: 255</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(multi_line)
+
+R: <span style="color:#bd93f9">123</span>
+G: <span style="color:#bd93f9">145</span>
+B: <span style="color:#bd93f9">255</span>
+
+</code></pre></div><p>或者，也可以使用三引号来表示多行字符串。f-string 不仅支持换行符 <code>\n</code> ， 还可以添加 <code>tab</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">&gt;&gt;&gt;</span> other <span style="color:#ff79c6">=</span> f<span style="color:#f1fa8c">&#34;&#34;&#34;R: {color[&#34;R&#34;]}
+</span><span style="color:#f1fa8c">    ...: G: {color[&#34;G&#34;]}
+</span><span style="color:#f1fa8c">    ...: B: {color[&#34;B&#34;]}
+</span><span style="color:#f1fa8c">    ...: &#34;&#34;&#34;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(other)
+R: <span style="color:#bd93f9">123</span>
+G: <span style="color:#bd93f9">145</span>
+B: <span style="color:#bd93f9">255</span>
+</code></pre></div><p>使用 <code>TAB</code> 的示例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> other <span style="color:#ff79c6">=</span> f<span style="color:#f1fa8c">&#39;&#39;&#39;
+</span><span style="color:#f1fa8c">
+</span><span style="color:#f1fa8c">    ...: this is an example
+</span><span style="color:#f1fa8c">    ...:
+</span><span style="color:#f1fa8c">    ...: of color {color[&#34;R&#34;]}
+</span><span style="color:#f1fa8c">    ...:
+</span><span style="color:#f1fa8c">    ...: &#39;&#39;&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> other
+
+<span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">this is an example</span><span style="color:#f1fa8c">\n\n\t</span><span style="color:#f1fa8c">of color 123</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">    </span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#39;</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span> <span style="color:#ff79c6">print</span>(other)
+
+this <span style="color:#ff79c6">is</span> an example
+
+    of color <span style="color:#bd93f9">123</span>
+
+<span style="color:#ff79c6">&gt;&gt;&gt;</span>
+
+</code></pre></div>
+  </div>
+
+  <footer>
+    <hr class="end-line">
+
+    
+
+    
+    <div class="post-tags">
+      <i class="fas fa-tags"></i>
+      
+        <a href="/tags/python">Python</a>
+        &nbsp;
+      
+    </div>
+    
+
+    
+    
+    <div class="releated-posts">
+      <h3>Related Posts</h3>
+      
+      <i class="fas fa-paperclip"></i>
+      <a href="/posts/pyside2%E4%B8%AD%E5%8A%A0%E8%BD%BDui%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83/">PySide2中加载ui文件的两种方法比较</a>
+      <br>
+      
+      <i class="fas fa-paperclip"></i>
+      <a href="/posts/tornado%E4%B8%ADfinish%E4%B9%8B%E5%90%8E%E8%B0%83%E7%94%A8write%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/">Tornado中finish之后调用write出现错误</a>
+      <br>
+      
+    </div>
+    
+  </footer>
+
+  <div class="comments">
+
+
+
+  <div class="comments-item comments-valine" >
+    
+    
+    
+    <div id="vcomments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script type="text/javascript">
+      new Valine({
+          el: '#vcomments',
+          highlight: false,
+          lang: "en",
+          appId: "3uutfWHHYBtffLPwlkIKNTk8-gzGzoHsz",
+          appKey: "DqaEXtwYz1E8XHoTykI43xz8",
+          placeholder: "Say Something......",
+          requiredFields: ["nick","mail"],
+          avatar: "robohash",
+          visitor:  true ,
+          recordIP: true
+      });
+    </script>
+    <script>
+      if(window.location.hash){
+          var checkExist = setInterval(function() {
+             if ($(window.location.hash).length) {
+                $('html, body, article').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                clearInterval(checkExist);
+             }
+          }, 100);
+      }
+    </script>
+  </div>
+
+</div>
+
+</article>
+
+
+</body>
+<div class="foot">
+  
+  
+
+  
+</div>
+
+<script src="/js/lazyload.min.js"></script>
+<script>
+  var lazyImage = new LazyLoad({
+    container: document.getElementById('article')
+  });
+</script>
+
+
+</html>

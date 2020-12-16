@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo 0.79.0" />
+
+  <title> 使python3终端print输出不换行的方案 |  Hola</title>
+  <meta name="description" content="A simple and concise blog.">
+  <link rel="stylesheet" href="https://xiaojieluo.com/css/simpleness.css">
+  <link rel="canonical" href="https://xiaojieluo.com/posts/%E4%BD%BFpython3%E7%BB%88%E7%AB%AFprint%E8%BE%93%E5%87%BA%E4%B8%8D%E6%8D%A2%E8%A1%8C%E7%9A%84%E6%96%B9%E6%A1%88/">
+  <link rel="alternate" type="application/rss+xml" href="" title="Hola">
+  
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="menus">
+  
+
+  <nav >
+    
+    <a href="/"> Home</a>
+    
+    <a href="/about/"> About</a>
+    
+  </nav>
+
+  <nav class="fontawesome">
+    
+    <a href="https://github.com/xiaojieluo" target="_blank">
+        <i title="GitHub" class="fab fa-github"></i>
+    </a>
+    
+    
+    <a href="https://xiaojieluo.com/index.xml" target="_blank">
+        <i title="RSS" class="fas fa-rss"></i>
+    </a>
+    
+  </nav>
+  
+  
+  <div class="hidden description">A simple and concise blog.</div>
+  
+</header>
+
+<article class="article">
+  <header>
+    <h1 style="text-align: center;" >使python3终端print输出不换行的方案</h1>
+
+    <div class="post-meta">
+    
+      <time datetime="2017-02-12T03:40:26&#43;08:00">February 12, 2017</time> &nbsp; 
+    
+
+     &nbsp;
+
+    
+    
+      <i class="far fa-eye"></i>
+      <span id="/posts/%E4%BD%BFpython3%E7%BB%88%E7%AB%AFprint%E8%BE%93%E5%87%BA%E4%B8%8D%E6%8D%A2%E8%A1%8C%E7%9A%84%E6%96%B9%E6%A1%88/" class="leancloud_visitors" data-flag-title="使python3终端print输出不换行的方案">
+          <span class="leancloud-visitors-count">  </span>
+      </span> &nbsp;
+    
+    
+
+    
+      <i class="far fa-clock"></i>
+      
+      
+      
+
+      
+        1 min
+      
+      0 s
+      &nbsp;
+    
+
+    
+    </div>
+  </header>
+
+   
+
+  <div class="text">
+    <p>用python3做进度条的时候，需要输出两个print，一个显示开始，一个显示结果，这就需要两个print的输出在同一行上</p>
+<h1 id="通过io库实现">通过io库实现</h1>
+<p>这是来自<a href="http://tieba.baidu.com/p/1333075731">贴吧大神</a>的解决方案，另辟奚径，挺有意思的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#ff79c6">import</span> io
+
+    output <span style="color:#ff79c6">=</span> io<span style="color:#ff79c6">.</span>StringIO()
+    output<span style="color:#ff79c6">.</span>write(<span style="color:#f1fa8c">&#39;First line.&#39;</span>)
+    <span style="color:#ff79c6">print</span>(<span style="color:#f1fa8c">&#39;Second line.&#39;</span>, <span style="color:#8be9fd;font-style:italic">file</span><span style="color:#ff79c6">=</span>output)
+
+    contents <span style="color:#ff79c6">=</span> output<span style="color:#ff79c6">.</span>getvalue()<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#39;</span><span style="color:#f1fa8c">\r</span><span style="color:#f1fa8c">&#39;</span>
+
+    output<span style="color:#ff79c6">.</span>close()
+    <span style="color:#ff79c6">print</span>(contents)
+</code></pre></div><h1 id="通过设置print第二个参数">通过设置print第二个参数</h1>
+<p>根据 <a href="https://docs.python.org/3.1/tutorial/inputoutput.html">官方手册</a>的说法，python3 中 <code>print</code> 默认在输出后面加上当前平台的换行符，我们只要禁用这个功能，就可以实现两个 <code>print</code> 输出在同一行了：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#ff79c6">print</span>(<span style="color:#f1fa8c">&#34;First line.&#34;</span>, end<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;&#39;</span>)
+    <span style="color:#6272a4"># 要在输出的最后加上\r，否则会有特殊字符出现，原因不明</span>
+    <span style="color:#ff79c6">print</span>(<span style="color:#f1fa8c">&#34;Second line.</span><span style="color:#f1fa8c">\r</span><span style="color:#f1fa8c">&#34;</span>, end<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;&#39;</span>)
+</code></pre></div>
+  </div>
+
+  <footer>
+    <hr class="end-line">
+
+    
+
+    
+
+    
+    
+  </footer>
+
+  <div class="comments">
+
+
+
+  <div class="comments-item comments-valine" >
+    
+    
+    
+    <div id="vcomments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script type="text/javascript">
+      new Valine({
+          el: '#vcomments',
+          highlight: false,
+          lang: "en",
+          appId: "3uutfWHHYBtffLPwlkIKNTk8-gzGzoHsz",
+          appKey: "DqaEXtwYz1E8XHoTykI43xz8",
+          placeholder: "Say Something......",
+          requiredFields: ["nick","mail"],
+          avatar: "robohash",
+          visitor:  true ,
+          recordIP: true
+      });
+    </script>
+    <script>
+      if(window.location.hash){
+          var checkExist = setInterval(function() {
+             if ($(window.location.hash).length) {
+                $('html, body, article').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                clearInterval(checkExist);
+             }
+          }, 100);
+      }
+    </script>
+  </div>
+
+</div>
+
+</article>
+
+
+</body>
+<div class="foot">
+  
+  
+
+  
+</div>
+
+<script src="/js/lazyload.min.js"></script>
+<script>
+  var lazyImage = new LazyLoad({
+    container: document.getElementById('article')
+  });
+</script>
+
+
+</html>

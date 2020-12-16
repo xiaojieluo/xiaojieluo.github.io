@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tornado on Hola</title>
+    <link>https://xiaojieluo.com/tags/tornado/</link>
+    <description>Recent content in Tornado on Hola</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 Feb 2017 13:57:04 +0800</lastBuildDate><atom:link href="https://xiaojieluo.com/tags/tornado/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tornado中finish之后调用write出现错误</title>
+      <link>https://xiaojieluo.com/posts/tornado%E4%B8%ADfinish%E4%B9%8B%E5%90%8E%E8%B0%83%E7%94%A8write%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Thu, 23 Feb 2017 13:57:04 +0800</pubDate>
+      
+      <guid>https://xiaojieluo.com/posts/tornado%E4%B8%ADfinish%E4%B9%8B%E5%90%8E%E8%B0%83%E7%94%A8write%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/</guid>
+      <description>参考了 知乎上的答案 , 但是没有实现我想要的效果，最终在翻 tornado.web 的源代码时，找到了一个解决办法
+在需要结束的地方抛出个 Finish() 异常就可以了，暂时还不清楚 Tornado 是如何处理这个异常的，以后有时间再看下实现过程
+example: from tornado.web import Finish ... ... class IndexHandler(RequestHandler): def get(self): self.write(&amp;#34;Hello&amp;#34;) raise Finish() self.write(&amp;#34;World&amp;#34;) </description>
+    </item>
+    
+  </channel>
+</rss>

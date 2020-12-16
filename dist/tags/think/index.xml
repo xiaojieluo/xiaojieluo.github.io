@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>think on Hola</title>
+    <link>https://xiaojieluo.com/tags/think/</link>
+    <description>Recent content in think on Hola</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Feb 2017 15:27:15 +0800</lastBuildDate><atom:link href="https://xiaojieluo.com/tags/think/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在函数中if,return,else的问题</title>
+      <link>https://xiaojieluo.com/posts/%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%ADifreturnelse%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sun, 05 Feb 2017 15:27:15 +0800</pubDate>
+      
+      <guid>https://xiaojieluo.com/posts/%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%ADifreturnelse%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>首先有这么一个函数：
+def parity(x = 10): &amp;#34;&amp;#34;&amp;#34; 判断奇偶性 奇数返回false 偶数返回true &amp;#34;&amp;#34;&amp;#34; if x%2 == 0: return true else: return false 实际运行，上面函数能很好的完成想要实现的功能，但是如果把 if 之后的程序修改下：
+def parity(x = 10): &amp;#34;&amp;#34;&amp;#34; 判断奇偶性 奇数返回false 偶数返回true &amp;#34;&amp;#34;&amp;#34; if x%2 == 0: return true return false 应该也是可以的，函数在返回 true 后就会抛弃掉后面的程序,阻断了 false 的 return.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo 0.79.0" />
+
+  <title> Tornado中finish之后调用write出现错误 |  Hola</title>
+  <meta name="description" content="A simple and concise blog.">
+  <link rel="stylesheet" href="https://xiaojieluo.com/css/simpleness.css">
+  <link rel="canonical" href="https://xiaojieluo.com/posts/tornado%E4%B8%ADfinish%E4%B9%8B%E5%90%8E%E8%B0%83%E7%94%A8write%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/">
+  <link rel="alternate" type="application/rss+xml" href="" title="Hola">
+  
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="menus">
+  
+
+  <nav >
+    
+    <a href="/"> Home</a>
+    
+    <a href="/about/"> About</a>
+    
+  </nav>
+
+  <nav class="fontawesome">
+    
+    <a href="https://github.com/xiaojieluo" target="_blank">
+        <i title="GitHub" class="fab fa-github"></i>
+    </a>
+    
+    
+    <a href="https://xiaojieluo.com/index.xml" target="_blank">
+        <i title="RSS" class="fas fa-rss"></i>
+    </a>
+    
+  </nav>
+  
+  
+  <div class="hidden description">A simple and concise blog.</div>
+  
+</header>
+
+<article class="article">
+  <header>
+    <h1 style="text-align: center;" >Tornado中finish之后调用write出现错误</h1>
+
+    <div class="post-meta">
+    
+      <time datetime="2017-02-23T13:57:04&#43;08:00">February 23, 2017</time> &nbsp; 
+    
+
+     &nbsp;
+
+    
+    
+      <i class="far fa-eye"></i>
+      <span id="/posts/tornado%E4%B8%ADfinish%E4%B9%8B%E5%90%8E%E8%B0%83%E7%94%A8write%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/" class="leancloud_visitors" data-flag-title="Tornado中finish之后调用write出现错误">
+          <span class="leancloud-visitors-count">  </span>
+      </span> &nbsp;
+    
+    
+
+    
+      <i class="far fa-clock"></i>
+      
+      
+      
+
+      
+      29 s
+      &nbsp;
+    
+
+    
+    </div>
+  </header>
+
+   
+
+  <div class="text">
+    <!-- raw HTML omitted -->
+<p>参考了 <a href="https://www.zhihu.com/question/19787492">知乎上的答案</a> , 但是没有实现我想要的效果，最终在翻 tornado.web 的源代码时，找到了一个解决办法</p>
+<p>在需要结束的地方抛出个 <code>Finish()</code> 异常就可以了，暂时还不清楚  Tornado 是如何处理这个异常的，以后有时间再看下实现过程</p>
+<h2 id="example">example:</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#ff79c6">from</span> tornado.web <span style="color:#ff79c6">import</span> Finish
+    <span style="color:#ff79c6">...</span>
+    <span style="color:#ff79c6">...</span>
+
+    <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">IndexHandler</span>(RequestHandler):
+        <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">get</span>(self):
+            self<span style="color:#ff79c6">.</span>write(<span style="color:#f1fa8c">&#34;Hello&#34;</span>)
+            <span style="color:#ff79c6">raise</span> Finish()
+            self<span style="color:#ff79c6">.</span>write(<span style="color:#f1fa8c">&#34;World&#34;</span>)
+</code></pre></div>
+  </div>
+
+  <footer>
+    <hr class="end-line">
+
+    
+
+    
+    <div class="post-tags">
+      <i class="fas fa-tags"></i>
+      
+        <a href="/tags/python">Python</a>
+        &nbsp;
+      
+        <a href="/tags/tornado">Tornado</a>
+        &nbsp;
+      
+    </div>
+    
+
+    
+    
+  </footer>
+
+  <div class="comments">
+
+
+
+  <div class="comments-item comments-valine" >
+    
+    
+    
+    <div id="vcomments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script type="text/javascript">
+      new Valine({
+          el: '#vcomments',
+          highlight: false,
+          lang: "en",
+          appId: "3uutfWHHYBtffLPwlkIKNTk8-gzGzoHsz",
+          appKey: "DqaEXtwYz1E8XHoTykI43xz8",
+          placeholder: "Say Something......",
+          requiredFields: ["nick","mail"],
+          avatar: "robohash",
+          visitor:  true ,
+          recordIP: true
+      });
+    </script>
+    <script>
+      if(window.location.hash){
+          var checkExist = setInterval(function() {
+             if ($(window.location.hash).length) {
+                $('html, body, article').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                clearInterval(checkExist);
+             }
+          }, 100);
+      }
+    </script>
+  </div>
+
+</div>
+
+</article>
+
+
+</body>
+<div class="foot">
+  
+  
+
+  
+</div>
+
+<script src="/js/lazyload.min.js"></script>
+<script>
+  var lazyImage = new LazyLoad({
+    container: document.getElementById('article')
+  });
+</script>
+
+
+</html>

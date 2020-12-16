@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo 0.79.0" />
+
+  <title> PySide2中加载ui文件的两种方法比较 |  Hola</title>
+  <meta name="description" content="A simple and concise blog.">
+  <link rel="stylesheet" href="https://xiaojieluo.com/css/simpleness.css">
+  <link rel="canonical" href="https://xiaojieluo.com/posts/pyside2%E4%B8%AD%E5%8A%A0%E8%BD%BDui%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83/">
+  <link rel="alternate" type="application/rss+xml" href="" title="Hola">
+  
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="menus">
+  
+
+  <nav >
+    
+    <a href="/"> Home</a>
+    
+    <a href="/about/"> About</a>
+    
+  </nav>
+
+  <nav class="fontawesome">
+    
+    <a href="https://github.com/xiaojieluo" target="_blank">
+        <i title="GitHub" class="fab fa-github"></i>
+    </a>
+    
+    
+    <a href="https://xiaojieluo.com/index.xml" target="_blank">
+        <i title="RSS" class="fas fa-rss"></i>
+    </a>
+    
+  </nav>
+  
+  
+  <div class="hidden description">A simple and concise blog.</div>
+  
+</header>
+
+<article class="article">
+  <header>
+    <h1 style="text-align: center;" >PySide2中加载ui文件的两种方法比较</h1>
+
+    <div class="post-meta">
+    
+      <time datetime="2019-09-12T13:10:35&#43;08:00">September 12, 2019</time> &nbsp; 
+    
+
+     &nbsp;
+
+    
+    
+      <i class="far fa-eye"></i>
+      <span id="/posts/pyside2%E4%B8%AD%E5%8A%A0%E8%BD%BDui%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83/" class="leancloud_visitors" data-flag-title="PySide2中加载ui文件的两种方法比较">
+          <span class="leancloud-visitors-count">  </span>
+      </span> &nbsp;
+    
+    
+
+    
+      <i class="far fa-clock"></i>
+      
+      
+      
+
+      
+        1 min
+      
+      57 s
+      &nbsp;
+    
+
+    
+    </div>
+  </header>
+
+   
+
+  <div class="text">
+    <p>先将 QtDesigner 生成的.ui 文件转换成 python 类，再在项目中导入这个类。</p>
+<p>可以使用 <code>pyside2-uic</code> 这个工具来实现 ui 文件转 python 类的操作，执行以下命令即可：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">    pyside2-uic mainwindow.ui -o ui_mainwindow.py
+</code></pre></div><p>注意： <a href="https://doc.qt.io/qtforpython/tutorials/basictutorial/uifiles.html">PySide2</a> 官网中的例子是使用管道将 pyside2-uic 的输出结果直接写入文件中，实测在 windows 下会有 bug, 会输出不可见字符，导致程序无法运行，所以还是建议使用 pyside2-uic 的 -o 参数，输出到文件中
+之后可以在项目中直接导入生成的 python 类。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#ff79c6">from</span> ui_mainwindow <span style="color:#ff79c6">import</span> Ui_MainWindow
+</code></pre></div><p>现在开始使用它，我们要先创建一个自定义的类，并在类中使用生成的 ui 类
+为了更好的理解，看下面的代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#ff79c6">import</span> sys
+    <span style="color:#ff79c6">from</span> PySide2.QtWidgets <span style="color:#ff79c6">import</span> QApplication, QMainWindow
+    <span style="color:#ff79c6">from</span> PySide2.QtCore <span style="color:#ff79c6">import</span> QFile
+    <span style="color:#ff79c6">from</span> ui_mainwindow <span style="color:#ff79c6">import</span> Ui_MainWindow
+
+    <span style="color:#ff79c6">class</span> <span style="color:#50fa7b">MainWindow</span>(QMainWindow):
+        <span style="color:#ff79c6">def</span> __init__(self):
+            <span style="color:#8be9fd;font-style:italic">super</span>(MainWindow, self)<span style="color:#ff79c6">.</span>__init__()
+            self<span style="color:#ff79c6">.</span>ui <span style="color:#ff79c6">=</span> Ui_MainWindow()
+            self<span style="color:#ff79c6">.</span>ui<span style="color:#ff79c6">.</span>setupUi(self)
+
+    <span style="color:#ff79c6">if</span> __name__ <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;__main__&#34;</span>:
+        app <span style="color:#ff79c6">=</span> QApplication(sys<span style="color:#ff79c6">.</span>argv)
+
+        window <span style="color:#ff79c6">=</span> MainWindow()
+        window<span style="color:#ff79c6">.</span>show()
+
+        sys<span style="color:#ff79c6">.</span>exit(app<span style="color:#ff79c6">.</span>exec_())
+</code></pre></div><p>下面两行负责从UI 文件加载生成的 Python 类</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    self<span style="color:#ff79c6">.</span>ui <span style="color:#ff79c6">=</span> Ui_MainWindow()
+    self<span style="color:#ff79c6">.</span>ui<span style="color:#ff79c6">.</span>setupUi(self)
+</code></pre></div><blockquote>
+<p>Note: 每次更改UI文件时，都必须再次运行 <code> </code> pyside2-uic <code> </code></p>
+</blockquote>
+<h2 id="使用--quiloader--直接加载-ui-文件">使用 <code>QUiLoader</code> 直接加载 .ui 文件</h2>
+<p>直接加载 ui 文件，我们需要使用 <code>QtUiTool</code> 模块</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#ff79c6">from</span> PySide2.QtUiTool <span style="color:#ff79c6">import</span> QUiLoader
+</code></pre></div><p><code>QUiLoader</code> 使我们可以动态加载 ui 文件并立即使用它。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    ui_file <span style="color:#ff79c6">=</span> QFile(<span style="color:#f1fa8c">&#34;mainwindow.ui&#34;</span>)
+    ui_file<span style="color:#ff79c6">.</span>open(QFile<span style="color:#ff79c6">.</span>ReadOnly)
+
+    loader <span style="color:#ff79c6">=</span> QUiLoader()
+    window <span style="color:#ff79c6">=</span> loader<span style="color:#ff79c6">.</span>load(ui_file)
+    window<span style="color:#ff79c6">.</span>show()
+</code></pre></div><p>一个完整的示例是像这样的：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#6272a4"># main.py</span>
+    <span style="color:#ff79c6">import</span> sys
+    <span style="color:#ff79c6">from</span> PySide2.QtUiTools <span style="color:#ff79c6">import</span> QUiLoader
+    <span style="color:#ff79c6">from</span> PySide2.QtWidgets <span style="color:#ff79c6">import</span> QApplication
+    <span style="color:#ff79c6">from</span> PySide2.QtCore <span style="color:#ff79c6">import</span> QFile, QIODevice
+
+    <span style="color:#ff79c6">if</span> __name__ <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;__main__&#34;</span>:
+        app <span style="color:#ff79c6">=</span> QApplication(sys<span style="color:#ff79c6">.</span>argv)
+
+        ui_file_name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;mainwindow.ui&#34;</span>
+        ui_file <span style="color:#ff79c6">=</span> QFile(ui_file_name)
+        <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">not</span> ui_file<span style="color:#ff79c6">.</span>open(QIODevice<span style="color:#ff79c6">.</span>ReadOnly):
+            <span style="color:#ff79c6">print</span>(<span style="color:#f1fa8c">&#34;Cannot open {}: {}&#34;</span><span style="color:#ff79c6">.</span>format(ui_file_name, ui_file<span style="color:#ff79c6">.</span>errorString()))
+            sys<span style="color:#ff79c6">.</span>exit(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)
+        loader <span style="color:#ff79c6">=</span> QUiLoader()
+        window <span style="color:#ff79c6">=</span> loader<span style="color:#ff79c6">.</span>load(ui_file)
+        ui_file<span style="color:#ff79c6">.</span>close()
+        <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">not</span> window:
+            <span style="color:#ff79c6">print</span>(loader<span style="color:#ff79c6">.</span>errorString())
+            sys<span style="color:#ff79c6">.</span>exit(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)
+        window<span style="color:#ff79c6">.</span>show()
+
+        sys<span style="color:#ff79c6">.</span>exit(app<span style="color:#ff79c6">.</span>exec_())
+</code></pre></div><p>我们只需要运行下列命令来执行它：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">    python main.py
+</code></pre></div><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+  </div>
+
+  <footer>
+    <hr class="end-line">
+
+    
+
+    
+    <div class="post-tags">
+      <i class="fas fa-tags"></i>
+      
+        <a href="/tags/python">Python</a>
+        &nbsp;
+      
+        <a href="/tags/pyside2">PySide2</a>
+        &nbsp;
+      
+        <a href="/tags/qt5">Qt5</a>
+        &nbsp;
+      
+    </div>
+    
+
+    
+    
+    <div class="releated-posts">
+      <h3>Related Posts</h3>
+      
+      <i class="fas fa-paperclip"></i>
+      <a href="/posts/tornado%E4%B8%ADfinish%E4%B9%8B%E5%90%8E%E8%B0%83%E7%94%A8write%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/">Tornado中finish之后调用write出现错误</a>
+      <br>
+      
+    </div>
+    
+  </footer>
+
+  <div class="comments">
+
+
+
+  <div class="comments-item comments-valine" >
+    
+    
+    
+    <div id="vcomments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script type="text/javascript">
+      new Valine({
+          el: '#vcomments',
+          highlight: false,
+          lang: "en",
+          appId: "3uutfWHHYBtffLPwlkIKNTk8-gzGzoHsz",
+          appKey: "DqaEXtwYz1E8XHoTykI43xz8",
+          placeholder: "Say Something......",
+          requiredFields: ["nick","mail"],
+          avatar: "robohash",
+          visitor:  true ,
+          recordIP: true
+      });
+    </script>
+    <script>
+      if(window.location.hash){
+          var checkExist = setInterval(function() {
+             if ($(window.location.hash).length) {
+                $('html, body, article').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+                clearInterval(checkExist);
+             }
+          }, 100);
+      }
+    </script>
+  </div>
+
+</div>
+
+</article>
+
+
+</body>
+<div class="foot">
+  
+  
+
+  
+</div>
+
+<script src="/js/lazyload.min.js"></script>
+<script>
+  var lazyImage = new LazyLoad({
+    container: document.getElementById('article')
+  });
+</script>
+
+
+</html>
