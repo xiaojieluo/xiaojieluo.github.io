@@ -11,6 +11,8 @@ highlight_code = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
+title = "Xiaojieluo's blog"
+
 theme = "even"
 
 taxonomies = [
@@ -21,3 +23,5 @@ taxonomies = [
 
 [extra]
 # Put all your custom variables here
+even_title = "Xiaojieluo's blog" # even 主题页面左上角
+author = "Xiaojie Luo"
