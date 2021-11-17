@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>Xiaojieluo&#x27;s blog - 通过实例学习python的fstring</title>
+
+      
+
+      
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+          
+      
+
+      
+          <link rel="stylesheet" href="https://xiaojieluo.com/site.css">
+          
+      
+
+      
+      
+    </head>
+
+    <body>
+        <div class="container">
+
+            <div id="mobile-navbar" class="mobile-navbar">
+              <div class="mobile-header-logo">
+                <a href="/" class="logo">Xiaojieluo&#x27;s blog</a>
+              </div>
+              <div class="mobile-navbar-icon icon-out">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <nav id="mobile-menu" class="mobile-menu slideout-menu slideout-menu-left">
+              <ul class="mobile-menu-list">
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;xiaojieluo.com">
+                            Home
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;xiaojieluo.com&#x2F;categories">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;xiaojieluo.com&#x2F;tags">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="mobile-menu-item">
+                        <a href="https:&#x2F;&#x2F;xiaojieluo.com&#x2F;about">
+                            About
+                        </a>
+                    </li>
+                
+              </ul>
+            </nav>
+
+            <header id="header">
+                <div class="logo"><a href="https:&#x2F;&#x2F;xiaojieluo.com">Xiaojieluo&#x27;s blog</a></div>
+                <nav class="menu">
+                    <ul>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;xiaojieluo.com">
+                                    Home
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;xiaojieluo.com&#x2F;categories">
+                                    Categories
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;xiaojieluo.com&#x2F;tags">
+                                    Tags
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="https:&#x2F;&#x2F;xiaojieluo.com&#x2F;about">
+                                    About
+                                </a>
+                            </li>
+                        
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <div class="content" id="mobile-panel">
+                    
+
+
+<div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content always-active">
+        <nav id="TableOfContents">
+            <ul>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#1-shi-yao-shi-python-de-f-string" class="toc-link">1. 什么是 Python 的 F-String</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#2-shi-yong-python-jin-xing-ji-ben-de-zi-fu-chuan-ge-shi-hua" class="toc-link">2. 使用 Python 进行基本的字符串格式化</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#3-f-string-de-ju-xian-xing" class="toc-link">3. f-string 的局限性</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#4-ru-he-ge-shi-hua-biao-da-shi" class="toc-link">4. 如何格式化表达式</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#5-shi-yong-f-strings-diao-shi-dai-ma" class="toc-link">5. 使用 F-Strings 调试代码</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#6-ge-shi-hua-bu-tong-ji-shu-de-zheng-shu" class="toc-link">6. 格式化不同基数的整数</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#7-shi-yong-f-strings-shu-chu-dui-xiang-xin-xi" class="toc-link">7. 使用 F-Strings 输出对象信息</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#8-zai-f-strings-zhong-she-zhi-float-jing-du" class="toc-link">8. 在 F-Strings 中设置 float 精度</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#9-jiang-shu-zi-ge-shi-hua-cheng-bai-fen-bi" class="toc-link">9. 将数字格式化成百分比</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#10-shi-yong-f-strings-lai-dui-qi-shu-chu-zi-fu-chuan" class="toc-link">10. 使用 F-Strings 来对齐输出字符串</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#11-zhuan-yi-zi-fu-chuan" class="toc-link">11. 转义字符串</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#12-ju-zhong-zi-fu-chuan" class="toc-link">12. 居中字符串</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#13-tian-jia-qian-fen-wei-fen-ge-fu" class="toc-link">13. 添加千分位分割符</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#14-shi-yong-ke-xue-ji-zhu-fa-zhi-zhen-ji-shu-fa-ge-shi-hua-shu-zi" class="toc-link">14. 使用科学技术法（指针计数法）格式化数字</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#15-zai-f-string-zhong-shi-yong-if-else-biao-da-shi" class="toc-link">15. 在 F-String 中使用 if-else 表达式</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#16-zai-f-string-zhong-shi-yong-zi-dian" class="toc-link">16. 在 F-String 中使用字典</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#17-lian-jie-f-string-zi-fu-chuan" class="toc-link">17. 连接 F-String 字符串</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#18-ge-shi-hua-xian-shi-datetime-dui-xiang" class="toc-link">18. 格式化显示 datetime 对象</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#19-xiu-fu-f-string-de-wu-xiao-yu-fa-cuo-wu" class="toc-link">19. 修复 F-String 的无效语法错误</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#20-shi-yong-f-string-gei-shu-zi-bu-ling" class="toc-link">20. 使用 F-String 给数字补零</a>
+                    
+                </li>
+                
+                <li>
+                    <a href="https://xiaojieluo.com/learn-python-s-fstring-through-examples/#21-zai-f-string-zhong-xian-shi-huan-xing" class="toc-link">21. 在 F-String 中显示换行</a>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<article class="post">
+    
+    <header class="post__header">
+        <h1 class="post__title">
+            <a href="https:&#x2F;&#x2F;xiaojieluo.com&#x2F;learn-python-s-fstring-through-examples&#x2F;">通过实例学习python的fstring</a>
+        </h1>
+        <div class="post__meta">
+            <span class="post__time">2020-11-14</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+      <h2 id="1-shi-yao-shi-python-de-f-string">1. 什么是 Python 的 F-String</h2>
+<p>在 Python 的历史中，字符串格式已经发展了很久， 在 Python 3.6 之前，如果想要格式化字符串，可以用 <code>%</code> 操作符或者 <code>string.Template</code> 模块，随后出现了 <code>str.format</code> 方法，并为语言中添加了一种更灵活，更健壮的格式化字符串的方法。</p>
+<span id="continue-reading"></span>
+<p>带 <code>%</code> 的旧字符串格式：</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; msg = &#x27;Hello World&#x27;
+&gt;&gt;&gt; &#x27;msg: %s&#x27; % msg
+
+&#x27;msg: Hello World&#x27;
+
+</code></pre>
+<p>使用 <code>str.format</code> :</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; msg = &#x27;Hello World&#x27;
+&gt;&gt;&gt; &#x27;msg: {}&#x27;.format(msg)
+
+&#x27;msg: Hello World&#x27;
+
+</code></pre>
+<p>为了进一步简化格式，Eric Smith 在 2015 年提出了 <a href="https://www.python.org/dev/peps/pep-0498/">PEP 498 -- Literal String Interpolation</a></p>
+<p>PEP 498 提出了这种新的格式化字符串方法，它是 <code>str.format</code> 的一种简单易用的替换方法。唯一需要做的就是在字符串开头添加 <code>f</code> 或者 <code>F</code> 字符。</p>
+<p>使用 <code>f-strings</code> :</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; msg = &#x27;hello world&#x27;
+&gt;&gt;&gt; f&#x27;msg: {msg}&#x27;
+
+&#x27;msg: hello world&#x27;
+
+</code></pre>
+<p>就是这样，不需要使用 <code>str.format</code> 或者 <code>%</code> ，但是， <code>f-string</code> 不能完全代替 <code>str.format</code> ，在下面的文章中，我会展示几个不适用 <code>f-string</code> 的示例。</p>
+<h2 id="2-shi-yong-python-jin-xing-ji-ben-de-zi-fu-chuan-ge-shi-hua">2. 使用 Python 进行基本的字符串格式化</h2>
+<p>如前一节所述，使用 <code>f-string</code> 格式化字符串非常简单，唯一的要求是为其提供有效的表达式。 <code>f-string</code> 可以用大写的 <code>F</code> 开头，并且可以与原始字符串结合使用，但是，不能将它与 <code>b''</code> 或者 <code>u''</code> 混合使用。</p>
+<p><img src="https://i.loli.net/2020/11/14/tPJqyNTKCu31rpg.png" alt="image.png" /></p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; book = &quot;The dog guide&quot;
+&gt;&gt;&gt; num_pages = 124
+
+&gt;&gt;&gt; f&quot;The book {book} has {num_pages} pages&quot;
+
+&#x27;The book The dog guide has 124 pages&#x27;
+
+&gt;&gt;&gt; F&quot;The book {book} has {num_pages} pages&quot;
+
+&#x27;The book The dog guide has 124 pages&#x27;
+
+&gt;&gt;&gt; print(Fr&quot;The book {book} has {num_pages} pages\n&quot;)
+
+The book The dog guide has 124 pages\n
+
+&gt;&gt;&gt; print(FR&quot;The book {book} has {num_pages} pages\n&quot;)
+
+The book The dog guide has 124 pages\n
+
+&gt;&gt;&gt; print(f&quot;The book {book} has {num_pages} pages\n&quot;)
+
+The book The dog guide has 124 pages
+
+</code></pre>
+<p>差不多就是这样，在下一节中，会列举几个不适用于 <code>f-string</code> 的示例。</p>
+<h2 id="3-f-string-de-ju-xian-xing">3. f-string 的局限性</h2>
+<p>尽管 <code>f-string</code> 非常方便，但是它不能完全替代 <code>str.format</code> 。 <code>f-string</code> 在表达式的上下文获取变量值。根据 <a href="https://miguendes.me/73-examples-to-help-you-master-pythons-f-strings#https://www.python.org/dev/peps/pep-0498/">PEP 498</a>的约定，这意味着表达式可以完全访问局部和全局变量，如果 <code>{ &lt;expr&gt; }</code> 中使用的表达式无法求值，则 python 解释器将引发异常。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; f&quot;{name}&quot;
+
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+&lt;ipython-input-1-f0acc441190f&gt; in &lt;module&gt;
+----&gt; 1 f&quot;{name}&quot;
+
+NameError: name &#x27;name&#x27; is not defined
+
+</code></pre>
+<p>这对于 <code>str.format</code> 来说不是问题，因为你可以定义模板字符串，然后调用 <code>.format</code> 来传递上下文</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; s = &quot;{name}&quot;
+&gt;&gt;&gt; s.format(name=&quot;Python&quot;)
+
+&#x27;Python&#x27;
+
+&gt;&gt;&gt; print(s)
+
+{name}
+
+</code></pre>
+<p>另一个限制是不能在 f-string 中使用内联注释。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; f&quot;My name is {name #name}!&quot;
+
+  File &quot;&lt;ipython-input-37-0ae1738dd871&gt;&quot;, line 1
+
+    f&quot;My name is {name #name}!&quot;
+    ^
+
+SyntaxError: f-string expression part cannot include &#x27;#&#x27;
+
+</code></pre>
+<h2 id="4-ru-he-ge-shi-hua-biao-da-shi">4. 如何格式化表达式</h2>
+<p>如果不想定义变量，则可以在花括号内使用表达式，Python 将在运行时计算出结果。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; f&quot;4 * 4 is {4 * 4}&quot;
+
+&#x27;4 * 4 is 16&#x27;
+
+</code></pre>
+<p>或者也可以这样...</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; n = 4
+&gt;&gt;&gt; f&quot;4 * 4 = {n * n}&quot;
+
+&#x27;4 * 4 is 16&#x27;
+
+</code></pre>
+<h2 id="5-shi-yong-f-strings-diao-shi-dai-ma">5. 使用 F-Strings 调试代码</h2>
+<p>f-string 最常见的用法之一就是调试。在之前，很多人都是用 <code>hello = 42; f&quot;hello={hello}&quot;</code> 来进行代码调试, 但是这样非常繁琐。现在，Python 3.6 带来了新的功能，可以将表达式重写成 <code>hello = 42; f&quot;{hello=}&quot;</code> ，Python 将自动显示 <code>hello = 42</code> ，下面的示例使用一个函数对此进行了说明，其原理是相同的。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; def magic_number():
+
+        ...:    return 42
+        ...:
+
+&gt;&gt;&gt; f&quot;{magic_number() = }&quot;
+
+&#x27;magic_number() = 42&#x27;
+
+</code></pre>
+<h2 id="6-ge-shi-hua-bu-tong-ji-shu-de-zheng-shu">6. 格式化不同基数的整数</h2>
+<p><img src="https://i.loli.net/2020/11/15/BZ41hUEODclL7qk.png" alt="image.png" /></p>
+<p>f-string 还允许以不同的格式显示数字。例如，可以使用 <code>b</code> 选项将 int 显示为二进制而不进行转换。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; f&#x27;{7:b}&#x27;
+
+&#x27;111&#x27;
+
+</code></pre>
+<p>总之，可以使用 f-string 格式化。</p>
+<ul>
+<li><code>int</code> 转 <code>binary</code>(二进制)</li>
+<li><code>int</code> 转 <code>hex</code>(十六进制)</li>
+<li><code>int</code> 转 <code>octal</code>(八进制)</li>
+<li><code>int</code> 转 <code>HEX</code>(所有的字符都是大写)</li>
+</ul>
+<p>下面的示例使用填充功能和基础数字格式来创建一个表，该表显示了整数格式化成其他进制后的对应数据。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; bases = {
+
+       &quot;b&quot;: &quot;bin&quot;,
+       &quot;o&quot;: &quot;oct&quot;,
+       &quot;x&quot;: &quot;hex&quot;,
+       &quot;X&quot;: &quot;HEX&quot;,
+       &quot;d&quot;: &quot;decimal&quot;
+
+}
+
+&gt;&gt;&gt; for n in range(1, 21):
+
+     ...:     for base, desc in bases.items():
+     ...:         print(f&quot;{n:5{base}}&quot;, end=&#x27; &#x27;)
+     ...:     print()
+
+    1     1     1     1     1
+
+   10     2     2     2     2
+   11     3     3     3     3
+  100     4     4     4     4
+  101     5     5     5     5
+  110     6     6     6     6
+  111     7     7     7     7
+ 1000    10     8     8     8
+ 1001    11     9     9     9
+ 1010    12     a     A    10
+ 1011    13     b     B    11
+ 1100    14     c     C    12
+ 1101    15     d     D    13
+ 1110    16     e     E    14
+ 1111    17     f     F    15
+10000    20    10    10    16
+10001    21    11    11    17
+10010    22    12    12    18
+10011    23    13    13    19
+10100    24    14    14    20
+
+</code></pre>
+<h2 id="7-shi-yong-f-strings-shu-chu-dui-xiang-xin-xi">7. 使用 F-Strings 输出对象信息</h2>
+<p>你可以用 f-string 打印自定义对象，在默认情况下，将对象传给 f-string 实例中，它将显示 <code>__str__</code> 方法返回的内容。但是，也可以使用<a href="https://www.python.org/dev/peps/pep-3101/#explicit-conversion-flag">显式转换标志</a>来显示 <code>__repr__</code> 。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">!r - 使用 repr() 将值转换成字符串
+!s - 使用 str() 将值转换成字符串
+</code></pre>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; class Color(object):
+
+        def __init__(self, r: float = 255, g: float = 255, b: float = 255):
+            self.r = r
+            self.g = g
+            self.b = b
+
+        def __str__(self) -&gt; str:
+            return &#x27;A RGB color.&#x27;
+
+        def __repr__(self) -&gt; str:
+            return f&quot;Color(r={self.r}, g = {self.g}, b = {self.b})&quot;
+
+&gt;&gt;&gt; c = Color(r=123, g=32, b=255)
+
+# When no option is passed, the __str__ result is printed
+
+&gt;&gt;&gt; f&quot;{c}&quot;
+
+&#x27;A RGB color&#x27;
+
+# When &#x27;obj!r&#x27; is used, the __repr__ output is print
+
+&gt;&gt;&gt; f&quot;{c!r}&quot;
+
+&#x27;Color(r=123, g=32, b=255)&#x27;
+
+# Some as the default
+
+&gt;&gt;&gt; f&quot;{c!s}&quot;
+
+&#x27;A RGB Color&#x27;
+
+</code></pre>
+<p>Python 还允许我们通过 <code>__format__</code> 方法<a href="https://www.python.org/dev/peps/pep-3101/#controlling-formatting-on-a-per-type-basis">按类型控制格式</a>。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; class Color(object):
+    def __init__(self, r: float = 255, g: float = 255, b: float = 255):
+        self.r = r
+        self.g = g
+        self.b = b
+
+    def __str__(self) -&gt; str:
+        return &#x27;A RGB Color&#x27;
+
+    def __repr__(self) -&gt; str:
+        return f&quot;Color(r={self.r}, g={self.g}, b={self.b})&quot;
+
+    def __format__(self, format_spec: str) -&gt; str:
+        if not format_spec or format_spec == &#x27;s&#x27;:
+            return str(self)
+
+        if format_spec == &#x27;r&#x27;:
+            return repr(self)
+
+        if format_spec == &#x27;v&#x27;:
+            return f&quot;Color(r={self.r}, g={self.g}, b={self.b}) - A nice RGB thing&quot;
+
+        if format_spec == &#x27;vv&#x27;:
+            return (
+                f&quot;Color(r={self.r}, g={self.g}, b={self.b})&quot;
+                f&quot;- A more verbose nice RGB thing.&quot;
+            )
+
+        if format_spec == &#x27;vvv&#x27;:
+            return (
+                f&quot;Color(r={self.r}, g={self.g}, b={self.b})&quot;
+                f&quot;- A SUPER verbose nice RGB thing.&quot;
+            )
+
+        raise ValueError(
+            f&quot;Unknow format code &#x27;{format_spec}&#x27;&quot;&quot;for object of type &#x27;Color&#x27;&quot;
+        )
+
+&gt;&gt;&gt; c = Color(r=123, b=32, g=255)
+
+&gt;&gt;&gt; f&#x27;{c:v}&#x27;
+&#x27;Color(r=123, g=32, b=255) - A nice RGB thing.&#x27;
+
+&gt;&gt;&gt; f&#x27;{c:vv}&#x27;
+&#x27;Color(r=123, g=32, b=255) - A more verbose nice RGB thing.&#x27;
+
+&gt;&gt;&gt; f&#x27;{c:vvv}&#x27;
+&#x27;Color(r=123, g=32, b=255) - A SUPER verbose nice RGB thing.&#x27;
+
+&gt;&gt;&gt; f&#x27;{c}&#x27;
+&#x27;A RGB color&#x27;
+
+&gt;&gt;&gt; f&#x27;{c:s}&#x27;
+&#x27;A RGB color&#x27;
+
+&gt;&gt;&gt; f&#x27;{c:r}&#x27;
+&#x27;Color(r=123, g=32, b=255)&#x27;
+
+&gt;&gt;&gt; f&#x27;{c:j}&#x27;
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+&lt;ipython-input-20-1c0ee8dd74be&gt; in &lt;module&gt;
+----&gt; 1 f&#x27;{c:j}&#x27;
+
+&lt;ipython-input-15-985c4992e957&gt; in __format__(self, format_spec)
+     29                 f&quot;- A SUPER verbose nice RGB thing.&quot;
+     30             )
+---&gt; 31         raise ValueError(
+     32             f&quot;Unknown format code &#x27;{format_spec}&#x27; &quot; &quot;for object of type &#x27;Color&#x27;&quot;
+     33         )
+
+ValueError: Unknown format code &#x27;j&#x27; for object of type &#x27;Color&#x27;
+
+</code></pre>
+<p>最后，还有一个选项可以转义非 ASCII 字符，有关信息可以查阅<a href="https://docs.python.org/3/library/functions.html#ascii">docs.python.org/3/library/functions.html#as..</a></p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; utf_str = &quot;Áeiöu&quot;
+
+&gt;&gt;&gt; f&quot;{utf_str!a}&quot;
+
+&quot;&#x27;\\xc1ei\\xf6u&#x27;&quot;
+
+</code></pre>
+<h2 id="8-zai-f-strings-zhong-she-zhi-float-jing-du">8. 在 F-Strings 中设置 float 精度</h2>
+<p>f-string 允许使用 str.format 格式的浮点数精度表示法，为此，可以在表达式后添加一个 <code>:</code> ，和带后缀f的小数点数。</p>
+<p>例如，可以将浮点数四舍五入到小数点后两位，然后按如下格式打印变量：</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; num = 3.1415926
+
+&gt;&gt;&gt; f&#x27;num round to 2 decimal palaces = {num:.2f}&#x27;
+&#x27;num rounded to 2 decimal palces = 3.14&#x27;
+</code></pre>
+<p>如果未指定任何精度，则 float 将使用全精度</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; print(f&#x27;{num}&#x27;)
+
+3.1415926
+
+</code></pre>
+<h2 id="9-jiang-shu-zi-ge-shi-hua-cheng-bai-fen-bi">9. 将数字格式化成百分比</h2>
+<p>Python3.6 引入的 f-string 将数字格式化成百分比非常方便。规则与浮点数精度格式相似，不同之处在于后缀将 <code>f</code> 换成 <code>%</code> 。它将数字乘以 100 并以固定格式显示，后面跟一个 <code>%</code> ， 并且可以指定精度。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; total = 87
+
+&gt;&gt;&gt; true_pops = 34
+
+&gt;&gt;&gt; perc = true_pops &#x2F; total
+
+&gt;&gt;&gt; perc
+0.39080459770114945
+
+&gt;&gt;&gt; f&#x27;Percentage of true positive: {perc:.%}&#x27;
+&#x27;Percentage of true positive: 39.080460%&#x27;
+
+&gt;&gt;&gt; f&quot;Percentage of true positive: {perc:.2%}&quot;
+&#x27;Percentage of true positive: 39.08%&#x27;
+</code></pre>
+<h2 id="10-shi-yong-f-strings-lai-dui-qi-shu-chu-zi-fu-chuan">10. 使用 F-Strings 来对齐输出字符串</h2>
+<p>可以使用 <code>&lt;</code> 或者 <code>&gt;</code> 来对齐字符串。</p>
+<p><img src="https://i.loli.net/2020/11/15/NL8laOgUxquf7pj.png" alt="image.png" /></p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; greetings = &#x27;Hello&#x27;
+
+&gt;&gt;&gt; f&quot;She says {greetings:&gt;10}&quot;
+
+&#x27;She says          Hello&#x27;
+
+# 向右对齐，即在左边增加 10 个字符
+
+&gt;&gt;&gt; f&quot;{greetings:&gt;10}&quot;
+
+&#x27;     hello&#x27;
+
+# 向左对齐，即在右边增加 10 个字符
+
+&gt;&gt;&gt; f&quot;{greetings:&lt;10}&quot;
+
+&#x27;hello     &#x27;
+
+# 可以省略 `&lt;` ， 默认向左对齐
+
+&gt;&gt;&gt; f&quot;{greetings:10}&quot;
+
+&#x27;hello     &#x27;
+
+</code></pre>
+<p><img src="https://i.loli.net/2020/11/15/NQm5rlfRo3aFIAp.png" alt="image.png" /></p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; a = &#x27;1&#x27;
+
+&gt;&gt;&gt; b = &#x27;21&#x27;
+
+&gt;&gt;&gt; c = &#x27;321&#x27;
+
+&gt;&gt;&gt; d = &#x27;4321&#x27;
+
+&gt;&gt;&gt; print(&quot;\n&quot;.join((f&quot;{a:&gt;10}&quot;, f&quot;{b:&gt;10}&quot;, f&quot;{c:&gt;10}&quot;, f&quot;{d:&gt;10}&quot;)))
+         1
+        21
+       321
+      4321
+</code></pre>
+<h2 id="11-zhuan-yi-zi-fu-chuan">11. 转义字符串</h2>
+<p>如果要显示用大括号括起来的变量名而不是显示其值，可以使用双大括号 <code>{{ &lt;expr&gt; }}</code> 对齐进行转义</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; hello = &#x27;world&#x27;
+
+&gt;&gt;&gt; f&#x27;{{hello}} = {hello}&#x27;
+
+&#x27;{hello} = world&#x27;
+
+</code></pre>
+<p>如果要转义双引号，可以使用反斜杠 <code>\</code></p>
+<pre data-lang="python python-shell" class="language-python python-shell "><code class="language-python python-shell" data-lang="python python-shell">
+&gt;&gt;&gt; f&quot;{hello} = \&quot;hello\&quot;&quot;
+
+&#x27;world = &quot;hello&quot;&#x27;
+
+</code></pre>
+<h2 id="12-ju-zhong-zi-fu-chuan">12. 居中字符串</h2>
+<p><img src="https://i.loli.net/2020/11/15/hCow9RlfMXsLpxK.png" alt="image.png" /></p>
+<p>可以使用 <code>var:^N</code> 来使字符串居中，其中 <code>var</code> 是要显示的变量， <code>N</code> 是字符串长度。如果 <code>N</code> 小于 <code>len(var)</code> ，则 Python 会显示所有字符串。</p>
+<pre data-lang="python python-shell" class="language-python python-shell "><code class="language-python python-shell" data-lang="python python-shell">
+&gt;&gt;&gt; hello = &#x27;world&#x27;
+
+&gt;&gt;&gt; f&quot;{hello:^11}&quot;
+
+&#x27;   world   &#x27;
+
+&gt;&gt;&gt; f&quot;{hello:*^11}&quot;
+
+&#x27;***world***&#x27;
+
+# 右侧添加了额外的填充字符
+
+&gt;&gt;&gt; f&quot;{hello:*^10}&quot;
+
+&#x27;**world***&#x27;
+
+# `N` 小于 len(hello)
+
+&gt;&gt;&gt; f&quot;{hello:^2}&quot;
+
+&#x27;world&#x27;
+
+</code></pre>
+<h2 id="13-tian-jia-qian-fen-wei-fen-ge-fu">13. 添加千分位分割符</h2>
+<p>f-string 还允许我们自定义数字。一种常见的操作是在每个千分位之间添加下划线</p>
+<pre data-lang="python python-shell" class="language-python python-shell "><code class="language-python python-shell" data-lang="python python-shell">
+&gt;&gt;&gt; big_num = 1234567890
+
+&gt;&gt;&gt; f&quot;{bing_num:_}&quot;
+
+&#x27;1_234_567_890&#x27;
+
+</code></pre>
+<p>事实上，可以使用任意的符号来做分割符。下面是使用 <code>,</code> 来做千位分割符的示例：</p>
+<pre data-lang="python python-shell" class="language-python python-shell "><code class="language-python python-shell" data-lang="python python-shell">
+&gt;&gt;&gt; big_num = 1234567890
+
+&gt;&gt;&gt; f&quot;{big_num:, }&quot;
+
+&#x27;1, 234, 567, 890&#x27;
+
+</code></pre>
+<p>也可以使用逗号分割浮点数，并一同设置显示精度</p>
+<pre data-lang="python python-shell" class="language-python python-shell "><code class="language-python python-shell" data-lang="python python-shell">
+&gt;&gt;&gt; num = 2343552.6516251625
+
+&gt;&gt;&gt; f&quot;{num:, .3f}&quot;
+
+&#x27;2, 343, 552.652&#x27;
+
+</code></pre>
+<p>也可以和 <code>replace</code> 结合使用，用空格做千分位分隔符</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; big_num = 1234567890
+
+&gt;&gt;&gt; f&quot;{big_num:,}&quot;.replace(&#x27;,&#x27;, &#x27; &#x27;)
+&#x27;1 234 567 890&#x27;
+</code></pre>
+<h2 id="14-shi-yong-ke-xue-ji-zhu-fa-zhi-zhen-ji-shu-fa-ge-shi-hua-shu-zi">14. 使用科学技术法（指针计数法）格式化数字</h2>
+<p>使用 <code>e</code> 或 <code>E</code> 选项可以以科学技术法格式化数字。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; num = 2343552.6516251625
+
+&gt;&gt;&gt; f&quot;{num:e}&quot;
+&#x27;2.343553e+06&#x27;
+
+&gt;&gt;&gt; f&quot;{num:E}&quot;
+&#x27;2.343553E+06&#x27;
+
+&gt;&gt;&gt; f&quot;{num:.2e}&quot;
+&#x27;2.34e+06&#x27;
+
+&gt;&gt;&gt; f&quot;{num:.4E}&quot;
+&#x27;2.3436E+06&#x27;
+
+</code></pre>
+<h2 id="15-zai-f-string-zhong-shi-yong-if-else-biao-da-shi">15. 在 F-String 中使用 <code>if-else</code> 表达式</h2>
+<p>f-string 还可以计算更复杂的表达式，例如内联 <code>if/else</code> ：</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; a = &#x27;this is a&#x27;
+
+&gt;&gt;&gt; b = &#x27;this is b&#x27;
+
+&gt;&gt;&gt; f&quot;{a if 10 &gt; 5 else b}&quot;
+&#x27;this is a&#x27;
+
+&gt;&gt;&gt; f&quot;{a if 10 &lt; 5 else b}&quot;
+&#x27;this is b&#x27;
+</code></pre>
+<h2 id="16-zai-f-string-zhong-shi-yong-zi-dian">16. 在 F-String 中使用字典</h2>
+<p>你可以在 f-string 中使用字典，唯一的要求是使用与包围表达式的引号不同的表达式。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; color = {&#x27;R&#x27;: 123, &#x27;G&#x27;: 145, &#x27;B&#x27;: 255}
+
+&gt;&gt;&gt; f&quot;{color[&#x27;R&#x27;]}&quot;
+
+&#x27;123&#x27;
+
+&gt;&gt;&gt; f&#x27;{color[&quot;G&quot;]}&#x27;
+
+&#x27;145&#x27;
+
+&gt;&gt;&gt; f&quot;RGB = ({color[&#x27;R&#x27;]}, {color[&#x27;G&#x27;]}, {color[&#x27;B&#x27;]})&quot;
+
+&#x27;RGB = (123, 145, 255)&#x27;
+
+</code></pre>
+<h2 id="17-lian-jie-f-string-zi-fu-chuan">17. 连接 F-String 字符串</h2>
+<p>串联 f-string 字符串 就像链接常规字符串一样，可以隐式地连接，或者通过 <code>+</code> 运算符和 <code>str.join</code> 来显示地执行此操作。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python"># 隐式字符串连接
+&gt;&gt;&gt; f&quot;{123}&quot; &quot; = &quot; f&quot;{100}&quot; &quot; + &quot; f&quot;{20}&quot; &quot; + &quot; f&quot;{3}&quot;
+&#x27;123 = 100 + 20 + 3&#x27;
+
+# 使用 `+` 运算符显示连接
+&gt;&gt;&gt; f&quot;{12}&quot; + &quot; != &quot; + f&quot;{13}&quot;
+&#x27;12 != 13&#x27;
+
+# 使用 `str.join` 连接
+&gt;&gt;&gt; &quot; &quot;.join((f&quot;{13}&quot;, f&quot;{45}&quot;))
+&#x27;13 45&#x27;
+
+&gt;&gt;&gt; &quot;#&quot;.join((f&quot;{13}&quot;, f&quot;{45}&quot;))
+&#x27;13#45&#x27;
+</code></pre>
+<h2 id="18-ge-shi-hua-xian-shi-datetime-dui-xiang">18. 格式化显示 <code>datetime</code> 对象</h2>
+<p>f-string 还支持格式化 datetime 对象。这个过程和 <code>str.format</code> 格式的日期非常相似。有关受支持格式的更多信息，可以查看<a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">这个表</a></p>
+<p><img src="https://i.loli.net/2020/11/15/z5xGnARBDjOYiPL.png" alt="image.png" /></p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; import datetime
+
+&gt;&gt;&gt; now = datetime.datetime.now()
+
+&gt;&gt;&gt; ten_days_ago = now - datetime.timedelta(days=10)
+
+&gt;&gt;&gt; f&quot;{ten_days_ago:%Y-%m-%d %H:%M:%S}&quot;
+
+&#x27;2020-11-05 18:34:34&#x27;
+
+&gt;&gt;&gt; f&#x27;{now:%Y-%m-%d %H:%M:%S}&#x27;
+
+&#x27;2020-11-15 18:34:34&#x27;
+
+</code></pre>
+<h2 id="19-xiu-fu-f-string-de-wu-xiao-yu-fa-cuo-wu">19. 修复 F-String 的无效语法错误</h2>
+<p>如果使用不正确，f-string 会抛出 <code>SyntaxError</code> ，最常见的原因是在双引号 f-string 中使用双引号</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; color = {&quot;R&quot;: 123, &quot;G&quot;: 145, &quot;B&quot;: 255}
+
+&gt;&gt;&gt; f&quot;{color[&quot;R&quot;]}&quot;
+  File &quot;&lt;ipython-input-43-1a7f5d512400&gt;&quot;, line 1
+    f&quot;{color[&quot;R&quot;]}&quot;
+    ^
+SyntaxError: f-string: unmatched &#x27;[&#x27;
+
+&gt;&gt;&gt; f&#x27;{color[&#x27;R&#x27;]}&#x27;
+  File &quot;&lt;ipython-input-44-3499a4e3120c&gt;&quot;, line 1
+    f&#x27;{color[&#x27;R&#x27;]}&#x27;
+    ^
+SyntaxError: f-string: unmatched &#x27;[&#x27;
+</code></pre>
+<p>另一个常见情况是在低版本中使用 f-string。f-string 是在 Python 3.6 版本中引入的，如果在低于此版本中使用，则解释器将抛出 <code>SyntaxError: invalid syntax.</code> 异常</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; f&quot;this is an old version&quot;
+
+  File &quot;&lt;stdin&gt;&quot;, line 1
+
+    f&quot;this is an old version&quot;
+                            ^
+
+SyntaxError: invalid syntax
+
+</code></pre>
+<p>如果看到 <code>invalid syntax</code> ，先确保仔细检查正在运行的 Python 版本。</p>
+<h2 id="20-shi-yong-f-string-gei-shu-zi-bu-ling">20. 使用 F-String 给数字补零</h2>
+<p>可以使用 <code>{expr:0len}</code> 格式在数字前面补0, 其中 <code>len</code> 是返回字符串的总长度。</p>
+<!-- 表达式中可以包括一个符号选项。
+在默认情况下， `+` 表示符号应用于正数和负数， `-` 仅用于负数。有关更多信息，可以查阅[字符串格式规范](https://docs.python.org/3/library/string.html#format-specification-mini-language) -->
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; num = 42
+
+&gt;&gt;&gt; f&quot;{num:05}&quot;
+&#x27;00042&#x27;
+
+&gt;&gt;&gt; f&#x27;{num:+010}&#x27;
+&#x27;+000000042&#x27;
+
+&gt;&gt;&gt; f&#x27;{num:-010}&#x27;
+&#x27;0000000042&#x27;
+
+&gt;&gt;&gt; f&quot;{num:010}&quot;
+&#x27;0000000042&#x27;
+
+&gt;&gt;&gt; num = -42
+
+&gt;&gt;&gt; f&#x27;{num:+010}&#x27;
+&#x27;-000000042&#x27;
+
+&gt;&gt;&gt; f&#x27;{num:010}&#x27;
+&#x27;-000000042&#x27;
+
+&gt;&gt;&gt; f&#x27;{num:-010}&#x27;
+&#x27;-000000042&#x27;
+</code></pre>
+<h2 id="21-zai-f-string-zhong-xian-shi-huan-xing">21. 在 F-String 中显示换行</h2>
+<p>可以将换行符 <code>\n</code> 与 f-string 一起使用以显示多行字符串。</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; multi_line = (f&#x27;R: {color[&quot;R&quot;]}\nG: {color[&quot;G&quot;]}\nB: {color[&quot;B&quot;
+
+    ...: ]}\n&#x27;)
+
+&gt;&gt;&gt; multi_line
+
+&#x27;R: 123\nG: 145\nB: 255\n&#x27;
+
+&gt;&gt;&gt; print(multi_line)
+
+R: 123
+G: 145
+B: 255
+
+</code></pre>
+<p>或者，也可以使用三引号来表示多行字符串。f-string 不仅支持换行符 <code>\n</code> ， 还可以添加 <code>tab</code></p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">&gt;&gt;&gt; other = f&quot;&quot;&quot;R: {color[&quot;R&quot;]}
+    ...: G: {color[&quot;G&quot;]}
+    ...: B: {color[&quot;B&quot;]}
+    ...: &quot;&quot;&quot;
+
+&gt;&gt;&gt; print(other)
+R: 123
+G: 145
+B: 255
+</code></pre>
+<p>使用 <code>TAB</code> 的示例：</p>
+<pre data-lang="python" class="language-python "><code class="language-python" data-lang="python">
+&gt;&gt;&gt; other = f&#x27;&#x27;&#x27;
+
+    ...: this is an example
+    ...:
+    ...: of color {color[&quot;R&quot;]}
+    ...:
+    ...: &#x27;&#x27;&#x27;
+
+&gt;&gt;&gt; other
+
+&#x27;\nthis is an example\n\n\tof color 123\n    \n&#x27;
+
+&gt;&gt;&gt; print(other)
+
+this is an example
+
+    of color 123
+
+&gt;&gt; &gt;
+
+</code></pre>
+
+    </div>
+
+    
+    
+
+    <div class="post-footer">
+        
+            
+            
+
+        
+
+    </div>
+
+    
+    
+</article>
+
+
+                </div>
+            </main>
+
+            
+            
+        </div>
+
+      
+          <script type="text/javascript" src="https://xiaojieluo.com/even.js" ></script>
+      
+    </body>
+
+</html>
